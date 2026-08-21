@@ -40,15 +40,52 @@ SEGMENTS = {
     "radial": [560,  1240,  1620, 2020],
     "bands":  [1820, 2420,  2760, 3160],
     "droste": [2960, 3560,  3900, 4300],
-    "clones": [4100, 4700,  5040, 5440],
-    "reveal": [5240, 5860,  8000, 8200],
+    "clones":  [4100, 4700, 5040, 5440],
+    "oblique": [5240, 5900, 6260, 6660],
+    "reveal":  [6460, 7080, 9000, 9200],
     "t1":     [640,  1240,  1560, 1940],
     "t2":     [1900, 2480,  2760, 3120],
     "t3":     [3040, 3620,  3880, 4260],
     "t4":     [4180, 4760,  5020, 5400],
-    "t5":     [5240, 5860,  8200, 8400],
+    "t4b":    [5320, 5960,  6240, 6620],
+    "t5":     [6460, 7080,  9200, 9400],
 }
-SCROLL = 6400
+SCROLL = 7600
+
+def half_plane(phi_deg, pad=6.0):
+    """
+    Clip polygon for one side of a mirror line through the centre at phi
+    degrees, in % of a square element. Padded outward so the polygon edge never
+    shows as a hairline against the element bounds.
+    """
+    lo, hi, c = -pad, 100.0 + pad, 50.0
+    ph = math.radians(phi_deg)
+    d = (math.cos(ph), math.sin(ph))
+    n = (-math.sin(ph), math.cos(ph))
+    hits = []
+    for t in (lo, hi):
+        if abs(d[0]) > 1e-9:
+            k = (t - c) / d[0]
+            y = c + k * d[1]
+            if lo - 1e-9 <= y <= hi + 1e-9:
+                hits.append((t, y))
+        if abs(d[1]) > 1e-9:
+            k = (t - c) / d[1]
+            x = c + k * d[0]
+            if lo - 1e-9 <= x <= hi + 1e-9:
+                hits.append((x, t))
+    pts = []
+    for q in hits:
+        if not any(abs(q[0] - r[0]) < 1e-6 and abs(q[1] - r[1]) < 1e-6 for r in pts):
+            pts.append(q)
+    pts = pts[:2]
+    for cx in (lo, hi):
+        for cy in (lo, hi):
+            if n[0] * (cx - c) + n[1] * (cy - c) > 0:
+                pts.append((cx, cy))
+    pts.sort(key=lambda q: math.atan2(q[1] - c, q[0] - c))
+    return "polygon(" + ", ".join(f"{x:.2f}% {y:.2f}%" for x, y in pts) + ")"
+
 
 layers = []
 
@@ -189,6 +226,38 @@ for gy in range(G):
                  "amount": "-42deg"},
             ])
 
+# --------------------------- act 5b: oblique mirrors at arbitrary angles
+# The plugin the film describes sliced a city block with "a series of virtual
+# mirrors at any angle". Reflection about a line at phi equals Rot(2*phi) then
+# FlipX, and the emitted order is rotate(r) ... scaleX(-1), so rotate(2*phi)
+# with scaleX(-1) IS that mirror. No new engine feature required.
+OBLIQUE = [17.0, 58.0, 96.0, 141.0]     # deliberately not evenly spaced
+add(name="oblique-base", src=SRC, z=13, anchor=ANCHOR,
+    translateX="-50%", translateY="-50%", origin="50% 50%",
+    base={"scale": 1, "opacity": 0, "blur": "8px"},
+    parallax={"x": "12px", "y": "6px"},
+    tracks=fade("oblique") + [
+        {"prop": "blur", "drive": "oblique.enter", "amount": "-8px"},
+        {"prop": "scale", "drive": "oblique.enter", "amount": 0.06},
+    ])
+for i, phi in enumerate(OBLIQUE):
+    add(name=f"oblique{i}", src=SRC, z=14 + i, anchor=ANCHOR,
+        translateX="-50%", translateY="-50%", origin="50% 50%",
+        clipRaw=half_plane(phi), perspective="1600px",
+        base={"rotate": f"{2 * phi}deg", "scaleX": -1, "opacity": 0, "blur": "10px"},
+        parallax={"x": f"{-10 - i * 4}px", "y": f"{5 + i * 2}px"},
+        tracks=[
+            # a higher power delays this mirror, so the planes arrive in turn
+            {"prop": "opacity", "drive": {"of": "oblique.enter", "pow": 1 + 0.5 * i},
+             "amount": 1},
+            {"prop": "opacity", "drive": {"of": "oblique.exit", "snap": 2}, "amount": -1},
+            {"prop": "blur", "drive": "oblique.enter", "amount": "-10px"},
+            {"prop": "contrast", "drive": "oblique.enter", "amount": 0.14},
+            {"prop": "hue", "drive": "oblique.enter", "amount": f"{i * 5}deg"},
+            {"prop": "rotateY", "drive": {"of": "oblique.enter", "back": 1.1},
+             "amount": f"{(-1) ** i * 11}deg"},
+        ])
+
 # ------------------------------------------------------------ seam passes
 add(name="seams-tex", src="raw/seams-tex.webp", z=20, fit="cover", blend="screen",
     origin="50% 50%",
@@ -231,6 +300,11 @@ PANELS = [
     ("p4", "Clones", "t4", {"top": "78%"}, None,
      "      <h2>Nine of it, offset.</h2>\n      <p>Duplicated and slid out of register, then "
      "allowed to fall back into a grid it was never built for.</p>"),
+    ("p4b", "Oblique mirrors", "t4b", {"top": "23%"}, None,
+     "      <h2>Now tilt the mirrors.</h2>\n"
+     "      <p>Four planes at seventeen, fifty-eight, ninety-six and one hundred "
+     "and forty-one degrees. Nothing lines up with anything, and the reflections "
+     "still agree, because a mirror does not care about your grid.</p>"),
     ("p5", "The illusion", "t5", {"top": "26%"}, None,
      "      <h2>And it was flat all along.</h2>\n      <p>Turn the whole thing on its own axis "
      "and the depth goes with it. One picture. Nothing was ever added.</p>\n"

@@ -2,8 +2,8 @@
   "title": "Mirror Dimension",
   "description": "One photograph, reflected against itself five ways.",
   "aria": "A scroll story in which one image is folded by five mirror operations",
-  "scrollHeight": 6400,
-  "progressSpan": 6400,
+  "scrollHeight": 7600,
+  "progressSpan": 7600,
   "smoothing": 0.1,
   "mouseSmoothing": 0.09,
   "tint": "8, 12, 22",
@@ -46,11 +46,17 @@
       5040,
       5440
     ],
-    "reveal": [
+    "oblique": [
       5240,
-      5860,
-      8000,
-      8200
+      5900,
+      6260,
+      6660
+    ],
+    "reveal": [
+      6460,
+      7080,
+      9000,
+      9200
     ],
     "t1": [
       640,
@@ -76,11 +82,17 @@
       5020,
       5400
     ],
+    "t4b": [
+      5320,
+      5960,
+      6240,
+      6620
+    ],
     "t5": [
-      5240,
-      5860,
-      8200,
-      8400
+      6460,
+      7080,
+      9200,
+      9400
     ]
   },
   "layers": [
@@ -2171,6 +2183,300 @@
       ]
     },
     {
+      "name": "oblique-base",
+      "src": "raw/axis.webp",
+      "z": 13,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "8px"
+      },
+      "parallax": {
+        "x": "12px",
+        "y": "6px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "oblique.enter",
+          "amount": "-8px"
+        },
+        {
+          "prop": "scale",
+          "drive": "oblique.enter",
+          "amount": 0.06
+        }
+      ]
+    },
+    {
+      "name": "oblique0",
+      "src": "raw/axis.webp",
+      "z": 14,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(-6.00% 32.88%, 106.00% 67.12%, 106.00% 106.00%, -6.00% 106.00%)",
+      "perspective": "1600px",
+      "base": {
+        "rotate": "34.0deg",
+        "scaleX": -1,
+        "opacity": 0,
+        "blur": "10px"
+      },
+      "parallax": {
+        "x": "-10px",
+        "y": "5px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.enter",
+            "pow": 1.0
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.exit",
+            "snap": 2
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "oblique.enter",
+          "amount": "-10px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "oblique.enter",
+          "amount": 0.14
+        },
+        {
+          "prop": "hue",
+          "drive": "oblique.enter",
+          "amount": "0deg"
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "oblique.enter",
+            "back": 1.1
+          },
+          "amount": "11deg"
+        }
+      ]
+    },
+    {
+      "name": "oblique1",
+      "src": "raw/axis.webp",
+      "z": 15,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(-6.00% -6.00%, 15.01% -6.00%, 84.99% 106.00%, -6.00% 106.00%)",
+      "perspective": "1600px",
+      "base": {
+        "rotate": "116.0deg",
+        "scaleX": -1,
+        "opacity": 0,
+        "blur": "10px"
+      },
+      "parallax": {
+        "x": "-14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.enter",
+            "pow": 1.5
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.exit",
+            "snap": 2
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "oblique.enter",
+          "amount": "-10px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "oblique.enter",
+          "amount": 0.14
+        },
+        {
+          "prop": "hue",
+          "drive": "oblique.enter",
+          "amount": "5deg"
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "oblique.enter",
+            "back": 1.1
+          },
+          "amount": "-11deg"
+        }
+      ]
+    },
+    {
+      "name": "oblique2",
+      "src": "raw/axis.webp",
+      "z": 16,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(-6.00% -6.00%, 55.89% -6.00%, 44.11% 106.00%, -6.00% 106.00%)",
+      "perspective": "1600px",
+      "base": {
+        "rotate": "192.0deg",
+        "scaleX": -1,
+        "opacity": 0,
+        "blur": "10px"
+      },
+      "parallax": {
+        "x": "-18px",
+        "y": "9px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.enter",
+            "pow": 2.0
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.exit",
+            "snap": 2
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "oblique.enter",
+          "amount": "-10px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "oblique.enter",
+          "amount": 0.14
+        },
+        {
+          "prop": "hue",
+          "drive": "oblique.enter",
+          "amount": "10deg"
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "oblique.enter",
+            "back": 1.1
+          },
+          "amount": "11deg"
+        }
+      ]
+    },
+    {
+      "name": "oblique3",
+      "src": "raw/axis.webp",
+      "z": 17,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(-6.00% -6.00%, 106.00% -6.00%, 106.00% 4.65%, -6.00% 95.35%)",
+      "perspective": "1600px",
+      "base": {
+        "rotate": "282.0deg",
+        "scaleX": -1,
+        "opacity": 0,
+        "blur": "10px"
+      },
+      "parallax": {
+        "x": "-22px",
+        "y": "11px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.enter",
+            "pow": 2.5
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "oblique.exit",
+            "snap": 2
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "oblique.enter",
+          "amount": "-10px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "oblique.enter",
+          "amount": 0.14
+        },
+        {
+          "prop": "hue",
+          "drive": "oblique.enter",
+          "amount": "15deg"
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "oblique.enter",
+            "back": 1.1
+          },
+          "amount": "-11deg"
+        }
+      ]
+    },
+    {
       "name": "seams-tex",
       "src": "raw/seams-tex.webp",
       "z": 20,
@@ -2335,6 +2641,14 @@
       "html": "      <h2>Nine of it, offset.</h2>\n      <p>Duplicated and slid out of register, then allowed to fall back into a grid it was never built for.</p>",
       "top": "78%",
       "segment": "t4"
+    },
+    {
+      "name": "p4b",
+      "aria": "Oblique mirrors",
+      "z": 30,
+      "html": "      <h2>Now tilt the mirrors.</h2>\n      <p>Four planes at seventeen, fifty-eight, ninety-six and one hundred and forty-one degrees. Nothing lines up with anything, and the reflections still agree, because a mirror does not care about your grid.</p>",
+      "top": "23%",
+      "segment": "t4b"
     },
     {
       "name": "p5",
