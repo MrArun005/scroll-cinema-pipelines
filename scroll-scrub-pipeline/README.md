@@ -155,6 +155,31 @@ scripts/embed.py      frames -> single self-contained HTML
 template/page.html    the scrubber page
 ```
 
+### Fixed
+
+Previously documented as known issues, now resolved:
+
+- **macOS builds.** `du -bc` is GNU-only; byte counts now use `wc -c`.
+- **`embed.py` on Windows.** Both reads and writes are explicitly UTF-8, so a
+  curly quote in the template no longer crashes it under cp1252.
+- **Frame ordering above 999 frames.** `%03d` made frame 1000 sort before 999;
+  numbering is `%05d`.
+- **`&` and `|` in `--title`.** Substitution moved out of `sed`, which treats
+  `&` as the matched text. The title travels through the environment, so no
+  shell quoting reaches it either.
+- **Double analysis.** `analyse.py --report FILE` writes the human report while
+  `--emit` prints the shell vars, so the slow pass runs once instead of twice.
+- **Leaked temp dirs.** An `EXIT` trap removes the probe and frame directories
+  on any exit path.
+- **Unclear failure.** A failed analysis now says so and stops, rather than
+  dying later on an unbound shell variable.
+- **Unreachable warning.** `embed.py` warned above 1.5 MB against a 5 MB default
+  budget, so it fired on every build; the threshold is 12 MB.
+- **Desktop memory.** Only mobile released frames, so desktop held every decoded
+  bitmap and the over-500 MB warning had no cure. Desktop keeps a 120-frame
+  window, mobile 40.
+- **Dead CSS** (`.readout .buf` styled no element) and two stale docstrings.
+
 ## Troubleshooting
 
 **Page sits at the loader.** Almost always a folder-based build opened over

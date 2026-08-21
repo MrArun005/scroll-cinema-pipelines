@@ -21,6 +21,17 @@
 #   --keep-frames  leave the frame directory behind for inspection
 
 set -euo pipefail
+
+PROBE_DIR=""; FRAMES=""; TPL=""; REPORT="$(mktemp)"
+cleanup() {
+  [ -n "$PROBE_DIR" ] && rm -rf "$PROBE_DIR"
+  [ -n "$FRAMES" ] && rm -rf "$FRAMES"
+  [ -n "$TPL" ] && rm -f "$TPL"
+  rm -f "$REPORT"
+  return 0
+}
+trap cleanup EXIT
+
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 IN="${1:?usage: build.sh input.mp4 output.html [options]}"
@@ -48,8 +59,10 @@ command -v ffmpeg >/dev/null || { echo "ffmpeg not found"; exit 1; }
 
 echo
 echo "  ANALYSING  $IN"
-eval "$(python3 "$HERE/scripts/analyse.py" "$IN" --emit)"
-python3 "$HERE/scripts/analyse.py" "$IN"
+EMIT="$(python3 "$HERE/scripts/analyse.py" "$IN" --emit --report "$REPORT")" || {
+  echo "  analysis failed; cannot continue"; exit 1; }
+eval "$EMIT"
+[ -s "$REPORT" ] && cat "$REPORT"
 
 [ "$CUTS" != "0" ] && echo "  Proceeding anyway, but expect the cuts to read as broken frames."
 [ "$GRADE_ON" = "0" ] && GRADE=""
@@ -64,9 +77,9 @@ CHAIN_TAIL=""
 # ---- probe cost per frame at full resolution --------------------------------
 PROBE_DIR="$(mktemp -d)"
 ffmpeg -y -v error -i "$IN" -vf "${CHAIN}fps=2${CHAIN_TAIL}" \
-  -c:v libwebp -quality "$QUALITY" -compression_level 6 -an "$PROBE_DIR/p_%03d.webp"
+  -c:v libwebp -quality "$QUALITY" -compression_level 6 -an "$PROBE_DIR/p_%05d.webp"
 PN=$(ls "$PROBE_DIR" | wc -l | tr -d ' ')
-PB=$(du -bc "$PROBE_DIR"/*.webp | tail -1 | cut -f1)
+PB=$(cat "$PROBE_DIR"/*.webp | wc -c | tr -d " ")
 PER=$(( PB / PN ))
 rm -rf "$PROBE_DIR"
 
@@ -97,15 +110,15 @@ echo "    framerate   ${FPS}fps"
 
 FRAMES="$(mktemp -d)"
 ffmpeg -y -v error -i "$IN" -vf "${CHAIN}fps=${FPS}${CHAIN_TAIL}" \
-  -c:v libwebp -quality "$QUALITY" -compression_level 6 -an "$FRAMES/f_%03d.webp"
+  -c:v libwebp -quality "$QUALITY" -compression_level 6 -an "$FRAMES/f_%05d.webp"
 
 N=$(ls "$FRAMES" | wc -l | tr -d ' ')
-RAW=$(du -bc "$FRAMES"/*.webp | tail -1 | cut -f1)
+RAW=$(cat "$FRAMES"/*.webp | wc -c | tr -d " ")
 echo "    frames      ${N}   raw $(( RAW / 1024 )) KB"
 
 # ---- assemble ---------------------------------------------------------------
 TPL="$(mktemp).html"
-sed "s|__TITLE__|${TITLE}|g" "$HERE/template/page.html" > "$TPL"
+TITLE="$TITLE" python3 "$HERE/scripts/settitle.py" "$HERE/template/page.html" "$TPL"
 python3 "$HERE/scripts/embed.py" "$TPL" "$FRAMES" "$OUT" >/dev/null
 rm -f "$TPL"
 
@@ -123,5 +136,5 @@ echo
 echo "  DONE  $OUT   $(( SIZE / 1024 )) KB"
 echo "        self-contained: open it directly, no server, no folder"
 echo "        ~${DEC} MB decoded in memory"
-[ "$DEC" -gt 500 ] && echo "        (over 500 MB — the page trims frames on mobile automatically)"
+[ "$DEC" -gt 500 ] && echo "        (over 500 MB decoded — the page keeps a window of frames and releases the rest: 120 on desktop, 40 on mobile)"
 echo

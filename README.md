@@ -93,22 +93,17 @@ luminance, motion magnitude, cut detection — and `--corners` writes a contact
 sheet for reading a watermark box off by eye, because auto-detection cannot tell a
 static watermark from static scenery.
 
-### Known issues, unfixed
+### Known issues
 
-Documented rather than silently carried:
+All of the issues previously listed here are fixed. See
+[`scroll-scrub-pipeline/README.md`](scroll-scrub-pipeline/README.md) for the list
+and what each one was.
 
-- **macOS builds fail.** `build.sh` uses GNU `du -bc`; BSD `du` has no `-b`. The
-  script already forks `stat -c%s || stat -f%z` for exactly this reason, so the
-  awareness is there but not applied.
-- **`embed.py` will crash on Windows** the first time the template contains a
-  character whose UTF-8 includes a byte cp1252 cannot decode — a curly closing
-  quote is enough. It opens without `encoding=`, and currently round-trips only by
-  luck.
-- **Frame ordering breaks above 999 frames.** `f_%03d` means frame 1000 sorts
-  before frame 999 lexicographically, so the sequence would scramble with no error.
-- **`&` in a `--title`** is a sed replacement metacharacter and corrupts the title.
-- **`analyse.py` runs twice per build**, duplicating the slowest step for identical
-  numbers.
+The one remaining gap is `cinema-scroll-pipeline/scripts/film.py`, which renders
+a scene to video and does not yet work reliably: batches of frames succeed and
+then a browser launch returns nothing. It needs a real driver over CDP rather
+than one process launch per batch.
+
 
 ---
 

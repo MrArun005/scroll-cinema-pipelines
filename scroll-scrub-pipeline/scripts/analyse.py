@@ -52,7 +52,7 @@ def lum(a):
 def watermark_sheet(video, out="watermark-corners.png"):
     """
     Auto-detection is unreliable: static scenery looks exactly like a static
-    watermark. So show the four corners at 3x and let a human read the box off
+    watermark. So show the four corners at 2x and let a human read the box off
     the grid. Takes ten seconds and is right every time.
     """
     arrs = frames(video, 3)
@@ -80,7 +80,7 @@ def watermark_sheet(video, out="watermark-corners.png"):
     return out, {k: (v[2], v[0]) for k, v in tiles.items()}
 
 
-def text_zone(arrs, mask=None):
+def text_zone(arrs):
     vals = []
     for a in arrs:
         L = lum(a)
@@ -106,10 +106,31 @@ def motion(v):
     return d_.mean(), d_.max(), cuts
 
 
+def build_report(w, h, dur, fps, zmean, zbright, gname, mmean, fps_min, cuts):
+    """The human report as a string, so one pass can both emit and report."""
+    legible = "-> needs grading" if zmean > 55 else "-> already legible"
+    cut_line = ("NONE - continuous" if not cuts
+                else f"{len(cuts)} DETECTED - will look broken when scrubbed")
+    out = [
+        "",
+        f"  source      {w}x{h}  {dur:.1f}s  {fps:.0f}fps",
+        f"  text zone   mean {zmean:.0f}, bright {zbright:.1f}%  {legible}",
+        f"  grade       {gname}",
+        f"  motion      step {mmean:.1f} -> minimum {fps_min}fps",
+        f"  cuts        {cut_line}",
+        "",
+    ]
+    if cuts:
+        out += ["  WARNING: cuts break scrubbing. A cut reads as a failed image load,",
+                "           not as an edit. Re-generate the source without cuts.", ""]
+    return chr(10).join(out) + chr(10)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("video")
     ap.add_argument("--emit", action="store_true")
+    ap.add_argument("--report", help="also write the human report here, so one "
+                                     "pass can serve build.sh and the reader")
     ap.add_argument("--corners", action="store_true",
                     help="write watermark-corners.png for reading off a delogo box")
     a = ap.parse_args()
@@ -140,25 +161,23 @@ def main():
 
     fps_min = 18 if mmean > 8 else (14 if mmean > 4 else 11)
 
+    report = build_report(w, h, dur, fps, zmean, zbright, gname, mmean, fps_min, cuts)
+    if a.report:
+        with open(a.report, "w", encoding="utf-8") as fh:
+            fh.write(report)
+
     if a.emit:
-        print(f"SRC_W={w}"); print(f"SRC_H={h}")
-        print(f"DUR={dur:.3f}"); print(f"SRC_FPS={fps:.3f}")
+        print(f"SRC_W={w}")
+        print(f"SRC_H={h}")
+        print(f"DUR={dur:.3f}")
+        print(f"SRC_FPS={fps:.3f}")
         print(f"GRADE={grade!r}")
         print(f"FPS_MIN={fps_min}")
         print(f"ZMEAN={zmean:.1f}")
         print(f"CUTS={len(cuts)}")
         return
 
-    print(f"\n  source      {w}x{h}  {dur:.1f}s  {fps:.0f}fps")
-    print(f"  text zone   mean {zmean:.0f}, bright {zbright:.1f}%  "
-          f"{'-> needs grading' if zmean > 55 else '-> already legible'}")
-    print(f"  grade       {gname}")
-    print(f"  motion      step {mmean:.1f} -> minimum {fps_min}fps")
-    print(f"  cuts        {'NONE - continuous' if not cuts else f'{len(cuts)} DETECTED - will look broken when scrubbed'}")
-    print()
-    if cuts:
-        print("  WARNING: cuts break scrubbing. A cut reads as a failed image load,")
-        print("           not as an edit. Re-generate the source without cuts.\n")
+    print(report, end="")
 
 
 if __name__ == "__main__":

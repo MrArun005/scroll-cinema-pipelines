@@ -12,7 +12,7 @@ goes, and read `TOTAL` from that array's length:
     img.src = "data:image/webp;base64," + B64[i];
 
 Why: no server, no file paths, no network. One tap opens it on a phone.
-Base64 adds ~33%, so keep the source frames under ~700 KB total.
+Base64 adds ~33%, so the page lands at roughly 4/3 of the frame bytes.
 """
 import base64, glob, os, sys
 
@@ -31,15 +31,16 @@ arr = "[" + ",".join(
     '"' + base64.b64encode(open(f, "rb").read()).decode() + '"'
     for f in frames) + "]"
 
-html = open(page).read()
+html = open(page, encoding="utf-8").read()
 if "__FRAMES__" not in html:
     sys.exit("page has no __FRAMES__ placeholder")
 
-open(out, "w").write(html.replace("__FRAMES__", arr))
+with open(out, "w", encoding="utf-8") as fh:
+    fh.write(html.replace("__FRAMES__", arr))
 
 size = os.path.getsize(out)
 print(f"frames : {len(frames)}")
 print(f"raw    : {raw//1024} KB")
 print(f"output : {out}  ({size//1024} KB)")
-if size > 1_500_000:
-    print("\nWARNING: over 1.5 MB. Drop fps or width — this is slow to open on mobile data.")
+if size > 12_000_000:
+    print("\nWARNING: over 12 MB. Lower --budget: slow on mobile data.")
