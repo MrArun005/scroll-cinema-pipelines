@@ -1,14 +1,14 @@
 {
   "title": "Mirror Dimension",
-  "description": "One street, folded.",
-  "aria": "A scroll story in which one image folds into a mirrored geometry",
-  "scrollHeight": 3600,
-  "progressSpan": 3600,
+  "description": "One street, folded along its own reflections.",
+  "aria": "A scroll story in which a street folds into a mirrored geometry",
+  "scrollHeight": 4400,
+  "progressSpan": 4400,
   "smoothing": 0.1,
   "mouseSmoothing": 0.09,
-  "tint": "10, 14, 26",
+  "tint": "8, 12, 22",
   "stage": {
-    "background": "#05070c"
+    "background": "#04060a"
   },
   "font": {
     "family": "Ogg Medium",
@@ -19,57 +19,89 @@
     "intro": [
       -1,
       0,
-      60,
-      520
+      80,
+      560
+    ],
+    "lookup": [
+      140,
+      560,
+      6000,
+      6200
     ],
     "fracture": [
-      420,
-      1000,
-      5000,
-      5200
+      980,
+      1560,
+      6000,
+      6200
     ],
     "spin": [
-      900,
-      2200,
-      5000,
-      5200
+      1400,
+      2900,
+      6000,
+      6200
     ],
     "fold": [
-      1500,
-      2300,
-      5000,
-      5200
+      2000,
+      3000,
+      6000,
+      6200
     ],
     "collapse": [
-      2700,
-      3300,
-      5000,
-      5200
+      3500,
+      4100,
+      6000,
+      6200
     ],
     "t2": [
-      420,
-      1000,
-      1500,
-      1900
+      980,
+      1560,
+      2050,
+      2450
     ],
     "t3": [
-      1500,
-      2150,
-      2650,
-      3000
+      2050,
+      2750,
+      3150,
+      3450
     ],
     "t4": [
-      2700,
-      3300,
-      5200,
-      5400
+      3500,
+      4100,
+      6200,
+      6400
     ]
   },
   "layers": [
     {
-      "name": "plain",
-      "src": "raw/source.webp",
+      "name": "void",
+      "src": "raw/void.webp",
       "z": 0,
+      "fit": "cover",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1.15
+      },
+      "parallax": {
+        "x": "-8px",
+        "y": "-4px"
+      },
+      "tracks": [
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.2
+        },
+        {
+          "prop": "brightness",
+          "drive": "fold.enter",
+          "amount": -0.25
+        }
+      ]
+    },
+    {
+      "name": "street",
+      "src": "raw/street.webp",
+      "z": 1,
       "fit": "cover",
       "origin": "50% 50%",
       "base": {
@@ -77,728 +109,788 @@
         "opacity": 1
       },
       "parallax": {
-        "x": "-12px",
-        "y": "-6px"
+        "x": "-14px",
+        "y": "-7px"
       },
       "tracks": [
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "lookup.enter",
             "snap": 2
           },
           "amount": -1
         },
         {
           "prop": "scale",
-          "drive": "fracture.enter",
-          "amount": 0.35
+          "drive": "lookup.enter",
+          "amount": 0.3
         },
         {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "lookup.enter",
           "amount": "14px"
         }
       ]
     },
     {
-      "name": "wedge0",
-      "src": "raw/source.webp",
+      "name": "axis-flat",
+      "src": "raw/axis.webp",
       "z": 2,
-      "anchor": "left: 50%; top: 50%; width: 165vmax; height: 165vmax",
-      "translateX": "-50%",
-      "translateY": "-50%",
-      "origin": "50% 50%",
-      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
-      "perspective": "1600px",
-      "base": {
-        "rotate": "0.0deg",
-        "scaleX": 1,
-        "opacity": 0,
-        "rotateY": "0deg",
-        "blur": "10px"
-      },
-      "parallax": {
-        "x": "16px",
-        "y": "8px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "fracture.enter",
-            "snap": 1.8
-          },
-          "amount": 1
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "-10px"
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "67.5deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "18deg"
-        },
-        {
-          "prop": "rotateY",
-          "drive": {
-            "of": "fold.enter",
-            "snap": 1.6
-          },
-          "amount": "-24deg"
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "fold.enter",
-            "back": 1.1
-          },
-          "amount": 0.4
-        },
-        {
-          "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.2
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "26deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "collapse.enter",
-          "amount": -0.5
-        }
-      ]
-    },
-    {
-      "name": "wedge1",
-      "src": "raw/source.webp",
-      "z": 2,
-      "anchor": "left: 50%; top: 50%; width: 165vmax; height: 165vmax",
-      "translateX": "-50%",
-      "translateY": "-50%",
-      "origin": "50% 50%",
-      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
-      "perspective": "1600px",
-      "base": {
-        "rotate": "45.0deg",
-        "scaleX": -1,
-        "opacity": 0,
-        "rotateY": "0deg",
-        "blur": "10px"
-      },
-      "parallax": {
-        "x": "-16px",
-        "y": "8px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "fracture.enter",
-            "snap": 1.8
-          },
-          "amount": 1
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "-10px"
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "67.5deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "18deg"
-        },
-        {
-          "prop": "rotateY",
-          "drive": {
-            "of": "fold.enter",
-            "snap": 1.6
-          },
-          "amount": "24deg"
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "fold.enter",
-            "back": 1.1
-          },
-          "amount": 0.4
-        },
-        {
-          "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.2
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "26deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "collapse.enter",
-          "amount": -0.5
-        }
-      ]
-    },
-    {
-      "name": "wedge2",
-      "src": "raw/source.webp",
-      "z": 2,
-      "anchor": "left: 50%; top: 50%; width: 165vmax; height: 165vmax",
-      "translateX": "-50%",
-      "translateY": "-50%",
-      "origin": "50% 50%",
-      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
-      "perspective": "1600px",
-      "base": {
-        "rotate": "90.0deg",
-        "scaleX": 1,
-        "opacity": 0,
-        "rotateY": "0deg",
-        "blur": "10px"
-      },
-      "parallax": {
-        "x": "16px",
-        "y": "8px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "fracture.enter",
-            "snap": 1.8
-          },
-          "amount": 1
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "-10px"
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "67.5deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "18deg"
-        },
-        {
-          "prop": "rotateY",
-          "drive": {
-            "of": "fold.enter",
-            "snap": 1.6
-          },
-          "amount": "-24deg"
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "fold.enter",
-            "back": 1.1
-          },
-          "amount": 0.4
-        },
-        {
-          "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.2
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "26deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "collapse.enter",
-          "amount": -0.5
-        }
-      ]
-    },
-    {
-      "name": "wedge3",
-      "src": "raw/source.webp",
-      "z": 2,
-      "anchor": "left: 50%; top: 50%; width: 165vmax; height: 165vmax",
-      "translateX": "-50%",
-      "translateY": "-50%",
-      "origin": "50% 50%",
-      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
-      "perspective": "1600px",
-      "base": {
-        "rotate": "135.0deg",
-        "scaleX": -1,
-        "opacity": 0,
-        "rotateY": "0deg",
-        "blur": "10px"
-      },
-      "parallax": {
-        "x": "-16px",
-        "y": "8px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "fracture.enter",
-            "snap": 1.8
-          },
-          "amount": 1
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "-10px"
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "67.5deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "18deg"
-        },
-        {
-          "prop": "rotateY",
-          "drive": {
-            "of": "fold.enter",
-            "snap": 1.6
-          },
-          "amount": "24deg"
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "fold.enter",
-            "back": 1.1
-          },
-          "amount": 0.4
-        },
-        {
-          "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.2
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "26deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "collapse.enter",
-          "amount": -0.5
-        }
-      ]
-    },
-    {
-      "name": "wedge4",
-      "src": "raw/source.webp",
-      "z": 2,
-      "anchor": "left: 50%; top: 50%; width: 165vmax; height: 165vmax",
-      "translateX": "-50%",
-      "translateY": "-50%",
-      "origin": "50% 50%",
-      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
-      "perspective": "1600px",
-      "base": {
-        "rotate": "180.0deg",
-        "scaleX": 1,
-        "opacity": 0,
-        "rotateY": "0deg",
-        "blur": "10px"
-      },
-      "parallax": {
-        "x": "16px",
-        "y": "8px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "fracture.enter",
-            "snap": 1.8
-          },
-          "amount": 1
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "-10px"
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "67.5deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "18deg"
-        },
-        {
-          "prop": "rotateY",
-          "drive": {
-            "of": "fold.enter",
-            "snap": 1.6
-          },
-          "amount": "-24deg"
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "fold.enter",
-            "back": 1.1
-          },
-          "amount": 0.4
-        },
-        {
-          "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.2
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "26deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "collapse.enter",
-          "amount": -0.5
-        }
-      ]
-    },
-    {
-      "name": "wedge5",
-      "src": "raw/source.webp",
-      "z": 2,
-      "anchor": "left: 50%; top: 50%; width: 165vmax; height: 165vmax",
-      "translateX": "-50%",
-      "translateY": "-50%",
-      "origin": "50% 50%",
-      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
-      "perspective": "1600px",
-      "base": {
-        "rotate": "225.0deg",
-        "scaleX": -1,
-        "opacity": 0,
-        "rotateY": "0deg",
-        "blur": "10px"
-      },
-      "parallax": {
-        "x": "-16px",
-        "y": "8px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "fracture.enter",
-            "snap": 1.8
-          },
-          "amount": 1
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "-10px"
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "67.5deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "18deg"
-        },
-        {
-          "prop": "rotateY",
-          "drive": {
-            "of": "fold.enter",
-            "snap": 1.6
-          },
-          "amount": "24deg"
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "fold.enter",
-            "back": 1.1
-          },
-          "amount": 0.4
-        },
-        {
-          "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.2
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "26deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "collapse.enter",
-          "amount": -0.5
-        }
-      ]
-    },
-    {
-      "name": "wedge6",
-      "src": "raw/source.webp",
-      "z": 2,
-      "anchor": "left: 50%; top: 50%; width: 165vmax; height: 165vmax",
-      "translateX": "-50%",
-      "translateY": "-50%",
-      "origin": "50% 50%",
-      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
-      "perspective": "1600px",
-      "base": {
-        "rotate": "270.0deg",
-        "scaleX": 1,
-        "opacity": 0,
-        "rotateY": "0deg",
-        "blur": "10px"
-      },
-      "parallax": {
-        "x": "16px",
-        "y": "8px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "fracture.enter",
-            "snap": 1.8
-          },
-          "amount": 1
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "-10px"
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "67.5deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "18deg"
-        },
-        {
-          "prop": "rotateY",
-          "drive": {
-            "of": "fold.enter",
-            "snap": 1.6
-          },
-          "amount": "-24deg"
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "fold.enter",
-            "back": 1.1
-          },
-          "amount": 0.4
-        },
-        {
-          "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.2
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "26deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "collapse.enter",
-          "amount": -0.5
-        }
-      ]
-    },
-    {
-      "name": "wedge7",
-      "src": "raw/source.webp",
-      "z": 2,
-      "anchor": "left: 50%; top: 50%; width: 165vmax; height: 165vmax",
-      "translateX": "-50%",
-      "translateY": "-50%",
-      "origin": "50% 50%",
-      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
-      "perspective": "1600px",
-      "base": {
-        "rotate": "315.0deg",
-        "scaleX": -1,
-        "opacity": 0,
-        "rotateY": "0deg",
-        "blur": "10px"
-      },
-      "parallax": {
-        "x": "-16px",
-        "y": "8px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "fracture.enter",
-            "snap": 1.8
-          },
-          "amount": 1
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "-10px"
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "67.5deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "18deg"
-        },
-        {
-          "prop": "rotateY",
-          "drive": {
-            "of": "fold.enter",
-            "snap": 1.6
-          },
-          "amount": "24deg"
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "fold.enter",
-            "back": 1.1
-          },
-          "amount": 0.4
-        },
-        {
-          "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.2
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "26deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "collapse.enter",
-          "amount": -0.5
-        }
-      ]
-    },
-    {
-      "name": "resolve",
-      "src": "raw/source.webp",
-      "z": 3,
       "fit": "cover",
       "origin": "50% 50%",
       "base": {
         "scale": 1.5,
         "opacity": 0,
         "blur": "14px"
+      },
+      "parallax": {
+        "x": "-14px",
+        "y": "-7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "lookup.enter",
+            "snap": 1.7
+          },
+          "amount": 1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "lookup.enter",
+            "back": 1.1
+          },
+          "amount": -0.46
+        },
+        {
+          "prop": "blur",
+          "drive": "lookup.enter",
+          "amount": "-14px"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 2
+          },
+          "amount": -1
+        },
+        {
+          "prop": "scale",
+          "drive": "fracture.enter",
+          "amount": 0.34
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "16px"
+        }
+      ]
+    },
+    {
+      "name": "wedge0",
+      "src": "raw/axis.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
+      "perspective": "1700px",
+      "hingeAxis": "-0.3827, -0.9239, 0",
+      "base": {
+        "rotate": "0.0deg",
+        "scaleX": 1,
+        "opacity": 0,
+        "hinge": "0deg",
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
+        },
+        {
+          "prop": "hinge",
+          "drive": {
+            "of": "fold.enter",
+            "back": 1.15
+          },
+          "amount": "52deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "fold.enter",
+          "amount": 0.18
+        },
+        {
+          "prop": "hue",
+          "drive": "progress",
+          "amount": "20deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "wedge1",
+      "src": "raw/axis.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
+      "perspective": "1700px",
+      "hingeAxis": "0.3827, -0.9239, 0",
+      "base": {
+        "rotate": "45.0deg",
+        "scaleX": -1,
+        "opacity": 0,
+        "hinge": "0deg",
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "-14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
+        },
+        {
+          "prop": "hinge",
+          "drive": {
+            "of": "fold.enter",
+            "back": 1.15
+          },
+          "amount": "-52deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "fold.enter",
+          "amount": 0.18
+        },
+        {
+          "prop": "hue",
+          "drive": "progress",
+          "amount": "20deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "wedge2",
+      "src": "raw/axis.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
+      "perspective": "1700px",
+      "hingeAxis": "-0.3827, -0.9239, 0",
+      "base": {
+        "rotate": "90.0deg",
+        "scaleX": 1,
+        "opacity": 0,
+        "hinge": "0deg",
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
+        },
+        {
+          "prop": "hinge",
+          "drive": {
+            "of": "fold.enter",
+            "back": 1.15
+          },
+          "amount": "52deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "fold.enter",
+          "amount": 0.18
+        },
+        {
+          "prop": "hue",
+          "drive": "progress",
+          "amount": "20deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "wedge3",
+      "src": "raw/axis.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
+      "perspective": "1700px",
+      "hingeAxis": "0.3827, -0.9239, 0",
+      "base": {
+        "rotate": "135.0deg",
+        "scaleX": -1,
+        "opacity": 0,
+        "hinge": "0deg",
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "-14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
+        },
+        {
+          "prop": "hinge",
+          "drive": {
+            "of": "fold.enter",
+            "back": 1.15
+          },
+          "amount": "-52deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "fold.enter",
+          "amount": 0.18
+        },
+        {
+          "prop": "hue",
+          "drive": "progress",
+          "amount": "20deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "wedge4",
+      "src": "raw/axis.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
+      "perspective": "1700px",
+      "hingeAxis": "-0.3827, -0.9239, 0",
+      "base": {
+        "rotate": "180.0deg",
+        "scaleX": 1,
+        "opacity": 0,
+        "hinge": "0deg",
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
+        },
+        {
+          "prop": "hinge",
+          "drive": {
+            "of": "fold.enter",
+            "back": 1.15
+          },
+          "amount": "52deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "fold.enter",
+          "amount": 0.18
+        },
+        {
+          "prop": "hue",
+          "drive": "progress",
+          "amount": "20deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "wedge5",
+      "src": "raw/axis.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
+      "perspective": "1700px",
+      "hingeAxis": "0.3827, -0.9239, 0",
+      "base": {
+        "rotate": "225.0deg",
+        "scaleX": -1,
+        "opacity": 0,
+        "hinge": "0deg",
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "-14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
+        },
+        {
+          "prop": "hinge",
+          "drive": {
+            "of": "fold.enter",
+            "back": 1.15
+          },
+          "amount": "-52deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "fold.enter",
+          "amount": 0.18
+        },
+        {
+          "prop": "hue",
+          "drive": "progress",
+          "amount": "20deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "wedge6",
+      "src": "raw/axis.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
+      "perspective": "1700px",
+      "hingeAxis": "-0.3827, -0.9239, 0",
+      "base": {
+        "rotate": "270.0deg",
+        "scaleX": 1,
+        "opacity": 0,
+        "hinge": "0deg",
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
+        },
+        {
+          "prop": "hinge",
+          "drive": {
+            "of": "fold.enter",
+            "back": 1.15
+          },
+          "amount": "52deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "fold.enter",
+          "amount": 0.18
+        },
+        {
+          "prop": "hue",
+          "drive": "progress",
+          "amount": "20deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "wedge7",
+      "src": "raw/axis.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "polygon(50% 50%, 29.29% 0%, 70.71% 0%)",
+      "perspective": "1700px",
+      "hingeAxis": "0.3827, -0.9239, 0",
+      "base": {
+        "rotate": "315.0deg",
+        "scaleX": -1,
+        "opacity": 0,
+        "hinge": "0deg",
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "-14px",
+        "y": "7px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "fracture.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "blur",
+          "drive": "fracture.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
+        },
+        {
+          "prop": "hinge",
+          "drive": {
+            "of": "fold.enter",
+            "back": 1.15
+          },
+          "amount": "-52deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "fold.enter",
+          "amount": 0.18
+        },
+        {
+          "prop": "hue",
+          "drive": "progress",
+          "amount": "20deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "seams-tex",
+      "src": "raw/seams-tex.webp",
+      "z": 4,
+      "fit": "cover",
+      "blend": "screen",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1.14,
+        "opacity": 0,
+        "rotate": "0deg"
+      },
+      "parallax": {
+        "x": "-26px",
+        "y": "-13px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": "fracture.enter",
+          "amount": 0.275
+        },
+        {
+          "prop": "opacity",
+          "drive": "fold.enter",
+          "amount": 0.138
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -0.413
+        },
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.28
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "22deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-9deg"
+        }
+      ]
+    },
+    {
+      "name": "seams",
+      "src": "raw/seams.webp",
+      "z": 5,
+      "fit": "cover",
+      "blend": "screen",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1.1,
+        "opacity": 0,
+        "rotate": "0deg"
+      },
+      "parallax": {
+        "x": "-26px",
+        "y": "-13px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": "fracture.enter",
+          "amount": 0.5
+        },
+        {
+          "prop": "opacity",
+          "drive": "fold.enter",
+          "amount": 0.25
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "collapse.enter",
+            "snap": 2
+          },
+          "amount": -0.75
+        },
+        {
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "-16deg"
+        },
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.28
+        }
+      ]
+    },
+    {
+      "name": "resolve",
+      "src": "raw/axis.webp",
+      "z": 6,
+      "fit": "cover",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1.55,
+        "opacity": 0,
+        "blur": "16px"
       },
       "parallax": {
         "x": "-10px",
@@ -819,21 +911,21 @@
             "of": "collapse.enter",
             "back": 1.1
           },
-          "amount": -0.46
+          "amount": -0.51
         },
         {
           "prop": "blur",
           "drive": "collapse.enter",
-          "amount": "-14px"
+          "amount": "-16px"
         }
       ]
     }
   ],
   "shade": {
     "drive": 1,
-    "top": 0.4,
-    "mid": 0.1,
-    "bottom": 0.44,
+    "top": 0.38,
+    "mid": 0.08,
+    "bottom": 0.42,
     "liftAt": -1
   },
   "extraCss": "\n.shade { z-index: 7 !important; }\n",
@@ -843,9 +935,9 @@
       "name": "hero",
       "aria": "Mirror Dimension",
       "z": 9,
-      "bottom": "clamp(48px, 16vh, 220px)",
+      "bottom": "clamp(48px, 15vh, 210px)",
       "width": "min(1040px, calc(100vw - 40px))",
-      "html": "      <h1>MIRROR</h1>\n      <p>The street is still the street. Only the rules holding it flat have been let go.</p>",
+      "html": "      <h1>MIRROR</h1>\n      <p>Look up, and the building is still the building. Only the rules holding it straight have been let go.</p>",
       "base": {
         "opacity": 1,
         "scale": 1
@@ -865,27 +957,27 @@
     },
     {
       "name": "p2",
-      "aria": "The fracture",
+      "aria": "The reflection",
       "segment": "t2",
       "z": 10,
-      "top": "24%",
-      "html": "      <h2>Eight of the same corridor.</h2>\n      <p>Every second one is a reflection, so the seams agree with each other and the eye reads it as a single object.</p>"
+      "top": "23%",
+      "html": "      <h2>Eight cells, not eight copies.</h2>\n      <p>Two mirrors at forty-five degrees give seven reflections and the original. Every second cell is reversed, so each line meets the seam at the angle it arrived and the join disappears.</p>"
     },
     {
       "name": "p3",
       "aria": "The fold",
       "segment": "t3",
       "z": 10,
-      "top": "76%",
-      "html": "      <h2>Then it stops being flat.</h2>\n      <p>Each wedge hinges out of plane on its own axis, and the figure turns while it does.</p>"
+      "top": "77%",
+      "html": "      <h2>Folded, not broken.</h2>\n      <p>Each cell pivots about the edge it shares with its neighbour, so that edge never moves. Nothing tears.</p>"
     },
     {
       "name": "p4",
       "aria": "The return",
       "segment": "t4",
       "z": 10,
-      "top": "30%",
-      "html": "      <h2>And it closes again.</h2>\n      <p>One street. Nothing was added.</p>\n      <button class=\"note-button\"><span aria-hidden=\"true\">↑</span><span>Fold it back</span></button>"
+      "top": "29%",
+      "html": "      <h2>And it stands straight again.</h2>\n      <p>One light well. Nothing was added and nothing was lost.</p>\n      <button class=\"note-button\"><span aria-hidden=\"true\">↑</span><span>Fold it back</span></button>"
     }
   ]
 }

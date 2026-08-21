@@ -34,6 +34,7 @@ PROPS = {
     "rotate": ("transform", 0.0, "deg"),
     "rotateX": ("transform", 0.0, "deg"),
     "rotateY": ("transform", 0.0, "deg"),
+    "hinge": ("transform", 0.0, "deg"),
     "clip": ("clip", 1.0, ""),
     "opacity": ("plain", 1.0, ""),
     "blur": ("filter", 0.0, "px"),
@@ -232,6 +233,9 @@ def css_for_layer(index, layer):
     # perspective must come first in the function list to apply to this element
     if layer.get("perspective"):
         parts.insert(0, f"perspective({layer['perspective']})")
+    if "hinge" in v:
+        axis = layer.get("hingeAxis", "0, 1, 0")
+        parts.append(f"rotate3d({axis}, {sum_expr(p, 'hinge', v, '0deg')})")
     if "rotateX" in v:
         parts.append(f"rotateX({sum_expr(p, 'rotateX', v, '0deg')})")
     if "rotateY" in v:
