@@ -1,9 +1,9 @@
 {
   "title": "Mirror Dimension",
-  "description": "One street, folded along its own reflections.",
-  "aria": "A scroll story in which a street folds into a mirrored geometry",
-  "scrollHeight": 3800,
-  "progressSpan": 3800,
+  "description": "One photograph, reflected against itself five ways.",
+  "aria": "A scroll story in which one image is folded by five mirror operations",
+  "scrollHeight": 6400,
+  "progressSpan": 6400,
   "smoothing": 0.1,
   "mouseSmoothing": 0.09,
   "tint": "8, 12, 22",
@@ -20,49 +20,67 @@
       -1,
       0,
       120,
-      620
+      640
     ],
-    "fracture": [
+    "radial": [
       560,
-      1250,
-      5400,
-      5600
+      1240,
+      1620,
+      2020
     ],
-    "spin": [
-      900,
-      2300,
-      5400,
-      5600
+    "bands": [
+      1820,
+      2420,
+      2760,
+      3160
     ],
-    "fold": [
-      1500,
-      2500,
-      5400,
-      5600
+    "droste": [
+      2960,
+      3560,
+      3900,
+      4300
     ],
-    "collapse": [
-      2900,
-      3500,
-      5400,
-      5600
+    "clones": [
+      4100,
+      4700,
+      5040,
+      5440
+    ],
+    "reveal": [
+      5240,
+      5860,
+      8000,
+      8200
+    ],
+    "t1": [
+      640,
+      1240,
+      1560,
+      1940
     ],
     "t2": [
-      620,
-      1250,
-      1750,
-      2150
+      1900,
+      2480,
+      2760,
+      3120
     ],
     "t3": [
-      1750,
-      2450,
-      2850,
-      3150
+      3040,
+      3620,
+      3880,
+      4260
     ],
     "t4": [
-      2900,
-      3500,
-      5600,
-      5800
+      4180,
+      4760,
+      5020,
+      5400
+    ],
+    "t5": [
+      5240,
+      5860,
+      8200,
+      8400
     ]
   },
   "layers": [
@@ -83,12 +101,12 @@
         {
           "prop": "scale",
           "drive": "progress",
-          "amount": 0.2
+          "amount": 0.22
         },
         {
           "prop": "brightness",
-          "drive": "fold.enter",
-          "amount": -0.25
+          "drive": "droste.enter",
+          "amount": -0.2
         }
       ]
     },
@@ -112,29 +130,61 @@
       "tracks": [
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.2
           },
           "amount": -1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.5
+          },
+          "amount": 1
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": "reveal.enter",
+          "amount": "-22deg"
+        },
+        {
+          "prop": "scale",
+          "drive": "reveal.enter",
+          "amount": 0.06
+        },
+        {
+          "prop": "brightness",
+          "drive": "reveal.enter",
+          "amount": 0.14
+        },
+        {
+          "prop": "contrast",
+          "drive": "reveal.enter",
+          "amount": 0.1
         }
-      ]
+      ],
+      "perspective": "1500px"
     },
     {
-      "name": "wedge0",
+      "name": "radial0",
       "src": "raw/axis.webp",
       "z": 3,
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
       "translateX": "-50%",
       "translateY": "-50%",
       "origin": "50% 50%",
@@ -156,59 +206,49 @@
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.8
           },
           "amount": 1
         },
         {
+          "prop": "opacity",
+          "drive": {
+            "of": "radial.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": "-9px"
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "hinge",
           "drive": {
-            "of": "fold.enter",
+            "of": "radial.exit",
             "back": 1.15
           },
-          "amount": "52deg"
+          "amount": "46deg"
         },
         {
           "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.18
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "20deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
+          "drive": "radial.enter",
+          "amount": 0.16
         }
       ]
     },
     {
-      "name": "wedge1",
+      "name": "radial1",
       "src": "raw/axis.webp",
       "z": 3,
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
       "translateX": "-50%",
       "translateY": "-50%",
       "origin": "50% 50%",
@@ -230,59 +270,49 @@
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.8
           },
           "amount": 1
         },
         {
+          "prop": "opacity",
+          "drive": {
+            "of": "radial.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": "-9px"
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "hinge",
           "drive": {
-            "of": "fold.enter",
+            "of": "radial.exit",
             "back": 1.15
           },
-          "amount": "-52deg"
+          "amount": "-46deg"
         },
         {
           "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.18
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "20deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
+          "drive": "radial.enter",
+          "amount": 0.16
         }
       ]
     },
     {
-      "name": "wedge2",
+      "name": "radial2",
       "src": "raw/axis.webp",
       "z": 3,
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
       "translateX": "-50%",
       "translateY": "-50%",
       "origin": "50% 50%",
@@ -304,59 +334,49 @@
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.8
           },
           "amount": 1
         },
         {
+          "prop": "opacity",
+          "drive": {
+            "of": "radial.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": "-9px"
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "hinge",
           "drive": {
-            "of": "fold.enter",
+            "of": "radial.exit",
             "back": 1.15
           },
-          "amount": "52deg"
+          "amount": "46deg"
         },
         {
           "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.18
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "20deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
+          "drive": "radial.enter",
+          "amount": 0.16
         }
       ]
     },
     {
-      "name": "wedge3",
+      "name": "radial3",
       "src": "raw/axis.webp",
       "z": 3,
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
       "translateX": "-50%",
       "translateY": "-50%",
       "origin": "50% 50%",
@@ -378,59 +398,49 @@
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.8
           },
           "amount": 1
         },
         {
+          "prop": "opacity",
+          "drive": {
+            "of": "radial.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": "-9px"
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "hinge",
           "drive": {
-            "of": "fold.enter",
+            "of": "radial.exit",
             "back": 1.15
           },
-          "amount": "-52deg"
+          "amount": "-46deg"
         },
         {
           "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.18
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "20deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
+          "drive": "radial.enter",
+          "amount": 0.16
         }
       ]
     },
     {
-      "name": "wedge4",
+      "name": "radial4",
       "src": "raw/axis.webp",
       "z": 3,
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
       "translateX": "-50%",
       "translateY": "-50%",
       "origin": "50% 50%",
@@ -452,59 +462,49 @@
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.8
           },
           "amount": 1
         },
         {
+          "prop": "opacity",
+          "drive": {
+            "of": "radial.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": "-9px"
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "hinge",
           "drive": {
-            "of": "fold.enter",
+            "of": "radial.exit",
             "back": 1.15
           },
-          "amount": "52deg"
+          "amount": "46deg"
         },
         {
           "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.18
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "20deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
+          "drive": "radial.enter",
+          "amount": 0.16
         }
       ]
     },
     {
-      "name": "wedge5",
+      "name": "radial5",
       "src": "raw/axis.webp",
       "z": 3,
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
       "translateX": "-50%",
       "translateY": "-50%",
       "origin": "50% 50%",
@@ -526,59 +526,49 @@
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.8
           },
           "amount": 1
         },
         {
+          "prop": "opacity",
+          "drive": {
+            "of": "radial.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": "-9px"
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "hinge",
           "drive": {
-            "of": "fold.enter",
+            "of": "radial.exit",
             "back": 1.15
           },
-          "amount": "-52deg"
+          "amount": "-46deg"
         },
         {
           "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.18
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "20deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
+          "drive": "radial.enter",
+          "amount": 0.16
         }
       ]
     },
     {
-      "name": "wedge6",
+      "name": "radial6",
       "src": "raw/axis.webp",
       "z": 3,
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
       "translateX": "-50%",
       "translateY": "-50%",
       "origin": "50% 50%",
@@ -600,59 +590,49 @@
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.8
           },
           "amount": 1
         },
         {
+          "prop": "opacity",
+          "drive": {
+            "of": "radial.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": "-9px"
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "hinge",
           "drive": {
-            "of": "fold.enter",
+            "of": "radial.exit",
             "back": 1.15
           },
-          "amount": "52deg"
+          "amount": "46deg"
         },
         {
           "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.18
-        },
-        {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "20deg"
-        },
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 2
-          },
-          "amount": -1
+          "drive": "radial.enter",
+          "amount": 0.16
         }
       ]
     },
     {
-      "name": "wedge7",
+      "name": "radial7",
       "src": "raw/axis.webp",
       "z": 3,
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
       "translateX": "-50%",
       "translateY": "-50%",
       "origin": "50% 50%",
@@ -674,58 +654,1526 @@
         {
           "prop": "opacity",
           "drive": {
-            "of": "fracture.enter",
+            "of": "radial.enter",
             "snap": 1.8
           },
           "amount": 1
         },
         {
+          "prop": "opacity",
+          "drive": {
+            "of": "radial.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
           "prop": "blur",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": "-9px"
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "56.25deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "14deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "hinge",
           "drive": {
-            "of": "fold.enter",
+            "of": "radial.exit",
             "back": 1.15
           },
-          "amount": "-52deg"
+          "amount": "-46deg"
         },
         {
           "prop": "contrast",
-          "drive": "fold.enter",
-          "amount": 0.18
-        },
+          "drive": "radial.enter",
+          "amount": 0.16
+        }
+      ]
+    },
+    {
+      "name": "band0",
+      "src": "raw/axis.webp",
+      "z": 4,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(0.000% 0 83.333% 0)",
+      "base": {
+        "scaleY": 1,
+        "opacity": 0,
+        "blur": "8px",
+        "y": "-12px"
+      },
+      "parallax": {
+        "x": "-18px",
+        "y": "6px"
+      },
+      "tracks": [
         {
-          "prop": "hue",
-          "drive": "progress",
-          "amount": "20deg"
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.enter",
+            "snap": 1.8
+          },
+          "amount": 1
         },
         {
           "prop": "opacity",
           "drive": {
-            "of": "collapse.enter",
-            "snap": 2
+            "of": "bands.exit",
+            "snap": 2.0
           },
           "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "bands.enter",
+          "amount": "-8px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "bands.enter",
+            "back": 1.2
+          },
+          "amount": "12px"
+        },
+        {
+          "prop": "x",
+          "drive": "bands.exit",
+          "amount": "-70px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "bands.enter",
+          "amount": 0.12
+        }
+      ]
+    },
+    {
+      "name": "band1",
+      "src": "raw/axis.webp",
+      "z": 4,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(16.667% 0 66.667% 0)",
+      "base": {
+        "scaleY": -1,
+        "opacity": 0,
+        "blur": "8px",
+        "y": "12px"
+      },
+      "parallax": {
+        "x": "18px",
+        "y": "6px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "bands.enter",
+          "amount": "-8px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "bands.enter",
+            "back": 1.2
+          },
+          "amount": "-12px"
+        },
+        {
+          "prop": "x",
+          "drive": "bands.exit",
+          "amount": "70px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "bands.enter",
+          "amount": 0.12
+        }
+      ]
+    },
+    {
+      "name": "band2",
+      "src": "raw/axis.webp",
+      "z": 4,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(33.333% 0 50.000% 0)",
+      "base": {
+        "scaleY": 1,
+        "opacity": 0,
+        "blur": "8px",
+        "y": "-12px"
+      },
+      "parallax": {
+        "x": "-18px",
+        "y": "6px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "bands.enter",
+          "amount": "-8px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "bands.enter",
+            "back": 1.2
+          },
+          "amount": "12px"
+        },
+        {
+          "prop": "x",
+          "drive": "bands.exit",
+          "amount": "-70px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "bands.enter",
+          "amount": 0.12
+        }
+      ]
+    },
+    {
+      "name": "band3",
+      "src": "raw/axis.webp",
+      "z": 4,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(50.000% 0 33.333% 0)",
+      "base": {
+        "scaleY": -1,
+        "opacity": 0,
+        "blur": "8px",
+        "y": "12px"
+      },
+      "parallax": {
+        "x": "18px",
+        "y": "6px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "bands.enter",
+          "amount": "-8px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "bands.enter",
+            "back": 1.2
+          },
+          "amount": "-12px"
+        },
+        {
+          "prop": "x",
+          "drive": "bands.exit",
+          "amount": "70px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "bands.enter",
+          "amount": 0.12
+        }
+      ]
+    },
+    {
+      "name": "band4",
+      "src": "raw/axis.webp",
+      "z": 4,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(66.667% 0 16.667% 0)",
+      "base": {
+        "scaleY": 1,
+        "opacity": 0,
+        "blur": "8px",
+        "y": "-12px"
+      },
+      "parallax": {
+        "x": "-18px",
+        "y": "6px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "bands.enter",
+          "amount": "-8px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "bands.enter",
+            "back": 1.2
+          },
+          "amount": "12px"
+        },
+        {
+          "prop": "x",
+          "drive": "bands.exit",
+          "amount": "-70px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "bands.enter",
+          "amount": 0.12
+        }
+      ]
+    },
+    {
+      "name": "band5",
+      "src": "raw/axis.webp",
+      "z": 4,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(83.333% 0 0.000% 0)",
+      "base": {
+        "scaleY": -1,
+        "opacity": 0,
+        "blur": "8px",
+        "y": "12px"
+      },
+      "parallax": {
+        "x": "18px",
+        "y": "6px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "bands.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "bands.enter",
+          "amount": "-8px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "bands.enter",
+            "back": 1.2
+          },
+          "amount": "-12px"
+        },
+        {
+          "prop": "x",
+          "drive": "bands.exit",
+          "amount": "70px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "bands.enter",
+          "amount": 0.12
+        }
+      ]
+    },
+    {
+      "name": "droste0",
+      "src": "raw/axis.webp",
+      "z": 5,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1.5,
+        "rotate": "0.0deg",
+        "opacity": 0,
+        "blur": "5px"
+      },
+      "parallax": {
+        "x": "10px",
+        "y": "5px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "droste.enter",
+            "back": 1.08
+          },
+          "amount": -0.5
+        },
+        {
+          "prop": "blur",
+          "drive": "droste.enter",
+          "amount": "-5px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-6deg"
+        },
+        {
+          "prop": "hue",
+          "drive": "droste.enter",
+          "amount": "0deg"
+        }
+      ]
+    },
+    {
+      "name": "droste1",
+      "src": "raw/axis.webp",
+      "z": 6,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "circle(46% at 50% 50%)",
+      "base": {
+        "scale": 0.9225,
+        "rotate": "13.0deg",
+        "opacity": 0,
+        "blur": "6px"
+      },
+      "parallax": {
+        "x": "8px",
+        "y": "4px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "droste.enter",
+            "back": 1.08
+          },
+          "amount": -0.3075
+        },
+        {
+          "prop": "blur",
+          "drive": "droste.enter",
+          "amount": "-6px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-9deg"
+        },
+        {
+          "prop": "hue",
+          "drive": "droste.enter",
+          "amount": "4deg"
+        }
+      ]
+    },
+    {
+      "name": "droste2",
+      "src": "raw/axis.webp",
+      "z": 7,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "circle(46% at 50% 50%)",
+      "base": {
+        "scale": 0.5673374999999999,
+        "rotate": "26.0deg",
+        "opacity": 0,
+        "blur": "7px"
+      },
+      "parallax": {
+        "x": "6px",
+        "y": "3px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "droste.enter",
+            "back": 1.08
+          },
+          "amount": -0.1891125
+        },
+        {
+          "prop": "blur",
+          "drive": "droste.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-12deg"
+        },
+        {
+          "prop": "hue",
+          "drive": "droste.enter",
+          "amount": "8deg"
+        }
+      ]
+    },
+    {
+      "name": "droste3",
+      "src": "raw/axis.webp",
+      "z": 8,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "circle(46% at 50% 50%)",
+      "base": {
+        "scale": 0.34891256249999997,
+        "rotate": "39.0deg",
+        "opacity": 0,
+        "blur": "8px"
+      },
+      "parallax": {
+        "x": "4px",
+        "y": "2px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "droste.enter",
+            "back": 1.08
+          },
+          "amount": -0.11630418749999999
+        },
+        {
+          "prop": "blur",
+          "drive": "droste.enter",
+          "amount": "-8px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-15deg"
+        },
+        {
+          "prop": "hue",
+          "drive": "droste.enter",
+          "amount": "12deg"
+        }
+      ]
+    },
+    {
+      "name": "droste4",
+      "src": "raw/axis.webp",
+      "z": 9,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "circle(46% at 50% 50%)",
+      "base": {
+        "scale": 0.21458122593749998,
+        "rotate": "52.0deg",
+        "opacity": 0,
+        "blur": "9px"
+      },
+      "parallax": {
+        "x": "2px",
+        "y": "1px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "droste.enter",
+            "back": 1.08
+          },
+          "amount": -0.0715270753125
+        },
+        {
+          "prop": "blur",
+          "drive": "droste.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-18deg"
+        },
+        {
+          "prop": "hue",
+          "drive": "droste.enter",
+          "amount": "16deg"
+        }
+      ]
+    },
+    {
+      "name": "droste5",
+      "src": "raw/axis.webp",
+      "z": 10,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "circle(46% at 50% 50%)",
+      "base": {
+        "scale": 0.13196745395156248,
+        "rotate": "65.0deg",
+        "opacity": 0,
+        "blur": "10px"
+      },
+      "parallax": {
+        "x": "0px",
+        "y": "0px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "droste.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "droste.enter",
+            "back": 1.08
+          },
+          "amount": -0.043989151317187496
+        },
+        {
+          "prop": "blur",
+          "drive": "droste.enter",
+          "amount": "-10px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-21deg"
+        },
+        {
+          "prop": "hue",
+          "drive": "droste.enter",
+          "amount": "20deg"
+        }
+      ]
+    },
+    {
+      "name": "clone0",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(0.00% 66.68% 66.68% 0.00%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": 1,
+        "x": "-53.6px",
+        "y": "-53.6px"
+      },
+      "parallax": {
+        "x": "-16px",
+        "y": "-10px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "53.6px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "53.6px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "-8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        }
+      ]
+    },
+    {
+      "name": "clone1",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(0.00% 33.34% 66.68% 33.34%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": -1,
+        "x": "0.0px",
+        "y": "-53.6px"
+      },
+      "parallax": {
+        "x": "0px",
+        "y": "-10px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-0.0px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "53.6px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        }
+      ]
+    },
+    {
+      "name": "clone2",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(0.00% 0.00% 66.68% 66.68%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": 1,
+        "x": "53.6px",
+        "y": "-53.6px"
+      },
+      "parallax": {
+        "x": "16px",
+        "y": "-10px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-53.6px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "53.6px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "-8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        }
+      ]
+    },
+    {
+      "name": "clone3",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(33.34% 66.68% 33.34% 0.00%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": -1,
+        "x": "-53.6px",
+        "y": "0.0px"
+      },
+      "parallax": {
+        "x": "-16px",
+        "y": "0px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "53.6px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-0.0px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        }
+      ]
+    },
+    {
+      "name": "clone4",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(33.34% 33.34% 33.34% 33.34%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": 1,
+        "x": "0.0px",
+        "y": "0.0px"
+      },
+      "parallax": {
+        "x": "0px",
+        "y": "0px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-0.0px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-0.0px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "-8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        }
+      ]
+    },
+    {
+      "name": "clone5",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(33.34% 0.00% 33.34% 66.68%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": -1,
+        "x": "53.6px",
+        "y": "0.0px"
+      },
+      "parallax": {
+        "x": "16px",
+        "y": "0px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-53.6px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-0.0px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        }
+      ]
+    },
+    {
+      "name": "clone6",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(66.68% 66.68% 0.00% 0.00%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": 1,
+        "x": "-53.6px",
+        "y": "53.6px"
+      },
+      "parallax": {
+        "x": "-16px",
+        "y": "10px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "53.6px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-53.6px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "-8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        }
+      ]
+    },
+    {
+      "name": "clone7",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(66.68% 33.34% 0.00% 33.34%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": -1,
+        "x": "0.0px",
+        "y": "53.6px"
+      },
+      "parallax": {
+        "x": "0px",
+        "y": "10px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-0.0px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-53.6px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
+        }
+      ]
+    },
+    {
+      "name": "clone8",
+      "src": "raw/axis.webp",
+      "z": 12,
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "origin": "50% 50%",
+      "clipRaw": "inset(66.68% 0.00% 0.00% 66.68%)",
+      "perspective": "1500px",
+      "base": {
+        "scale": 1,
+        "opacity": 0,
+        "blur": "7px",
+        "scaleX": 1,
+        "x": "53.6px",
+        "y": "53.6px"
+      },
+      "parallax": {
+        "x": "16px",
+        "y": "10px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.enter",
+            "snap": 1.8
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "clones.exit",
+            "snap": 2.0
+          },
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "clones.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-53.6px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "clones.enter",
+            "back": 1.15
+          },
+          "amount": "-53.6px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "clones.exit",
+          "amount": "-8deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "reveal.enter",
+            "snap": 1.4
+          },
+          "amount": 0.3
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "reveal.enter",
+            "back": 1.1
+          },
+          "amount": "-42deg"
         }
       ]
     },
     {
       "name": "seams-tex",
       "src": "raw/seams-tex.webp",
-      "z": 4,
+      "z": 20,
       "fit": "cover",
       "blend": "screen",
       "origin": "50% 50%",
@@ -741,43 +2189,38 @@
       "tracks": [
         {
           "prop": "opacity",
-          "drive": "fracture.enter",
-          "amount": 0.275
+          "drive": "radial.enter",
+          "amount": 0.28
         },
         {
           "prop": "opacity",
-          "drive": "fold.enter",
-          "amount": 0.138
+          "drive": "droste.enter",
+          "amount": 0.12
         },
         {
           "prop": "opacity",
           "drive": {
-            "of": "collapse.enter",
+            "of": "reveal.enter",
             "snap": 2
           },
-          "amount": -0.413
+          "amount": -0.4
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-14deg"
         },
         {
           "prop": "scale",
           "drive": "progress",
-          "amount": 0.28
-        },
-        {
-          "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "22deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": "progress",
-          "amount": "-9deg"
+          "amount": 0.26
         }
       ]
     },
     {
       "name": "seams",
       "src": "raw/seams.webp",
-      "z": 5,
+      "z": 21,
       "fit": "cover",
       "blend": "screen",
       "origin": "50% 50%",
@@ -787,32 +2230,37 @@
         "rotate": "0deg"
       },
       "parallax": {
-        "x": "-26px",
-        "y": "-13px"
+        "x": "-30px",
+        "y": "-15px"
       },
       "tracks": [
         {
           "prop": "opacity",
-          "drive": "fracture.enter",
+          "drive": "radial.enter",
           "amount": 0.5
         },
         {
           "prop": "opacity",
-          "drive": "fold.enter",
+          "drive": "bands.enter",
+          "amount": -0.2
+        },
+        {
+          "prop": "opacity",
+          "drive": "droste.enter",
           "amount": 0.25
         },
         {
           "prop": "opacity",
           "drive": {
-            "of": "collapse.enter",
+            "of": "reveal.enter",
             "snap": 2
           },
-          "amount": -0.75
+          "amount": -0.55
         },
         {
           "prop": "rotate",
-          "drive": "spin.enter",
-          "amount": "-16deg"
+          "drive": "radial.enter",
+          "amount": "22deg"
         },
         {
           "prop": "scale",
@@ -820,66 +2268,25 @@
           "amount": 0.28
         }
       ]
-    },
-    {
-      "name": "resolve",
-      "src": "raw/axis.webp",
-      "z": 6,
-      "origin": "50% 50%",
-      "base": {
-        "scale": 1.55,
-        "opacity": 0,
-        "blur": "16px"
-      },
-      "parallax": {
-        "x": "-10px",
-        "y": "-5px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "collapse.enter",
-            "snap": 1.6
-          },
-          "amount": 1
-        },
-        {
-          "prop": "scale",
-          "drive": {
-            "of": "collapse.enter",
-            "back": 1.1
-          },
-          "amount": -0.51
-        },
-        {
-          "prop": "blur",
-          "drive": "collapse.enter",
-          "amount": "-16px"
-        }
-      ],
-      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
-      "translateX": "-50%",
-      "translateY": "-50%"
     }
   ],
   "shade": {
     "drive": 1,
-    "top": 0.38,
+    "top": 0.36,
     "mid": 0.08,
-    "bottom": 0.42,
+    "bottom": 0.4,
     "liftAt": -1
   },
-  "extraCss": "\n.shade { z-index: 7 !important; }\n",
-  "chrome": "      <header class=\"site-header\" aria-label=\"Primary navigation\">\n        <a class=\"site-logo\" href=\"#cinema\">Mirror</a>\n        <nav class=\"site-nav\" aria-label=\"Main menu\">\n          <a href=\"#cinema\">Fold</a>\n          <a href=\"#cinema\">Return</a>\n        </nav>\n      </header>",
+  "extraCss": "\n.shade { z-index: 25 !important; }\n",
+  "chrome": "      <header class=\"site-header\" aria-label=\"Primary navigation\">\n        <a class=\"site-logo\" href=\"#cinema\">Mirror</a>\n        <nav class=\"site-nav\" aria-label=\"Main menu\">\n          <a href=\"#cinema\">Radial</a>\n          <a href=\"#cinema\">Planar</a>\n          <a href=\"#cinema\">Recursive</a>\n          <a href=\"#cinema\">Reveal</a>\n        </nav>\n      </header>",
   "panels": [
     {
       "name": "hero",
       "aria": "Mirror Dimension",
-      "z": 9,
-      "bottom": "clamp(48px, 15vh, 210px)",
+      "z": 30,
+      "html": "      <h1>MIRROR</h1>\n      <p>One photograph of one light well. Every shape after this is the same picture, reflected against itself.</p>",
+      "bottom": "clamp(48px, 14vh, 200px)",
       "width": "min(1040px, calc(100vw - 40px))",
-      "html": "      <h1>MIRROR</h1>\n      <p>One light well, photographed straight up. Keep scrolling and the rules holding it straight are let go.</p>",
       "base": {
         "opacity": 1,
         "scale": 1
@@ -898,28 +2305,44 @@
       ]
     },
     {
+      "name": "p1",
+      "aria": "Radial mirrors",
+      "z": 30,
+      "html": "      <h2>Eight cells, not eight copies.</h2>\n      <p>A block sliced by virtual mirrors. Every second cell is reversed, so each line meets the seam at the angle it arrived and the join disappears.</p>",
+      "top": "22%",
+      "segment": "t1"
+    },
+    {
       "name": "p2",
-      "aria": "The reflection",
-      "segment": "t2",
-      "z": 10,
-      "top": "23%",
-      "html": "      <h2>Eight cells, not eight copies.</h2>\n      <p>Two mirrors at forty-five degrees give seven reflections and the original. Every second cell is reversed, so each line meets the seam at the angle it arrived and the join disappears.</p>"
+      "aria": "Planar mirrors",
+      "z": 30,
+      "html": "      <h2>Straighten the mirrors.</h2>\n      <p>The same operation, axis aligned instead of radial. Six bands, alternating reflections, sliding against each other.</p>",
+      "top": "77%",
+      "segment": "t2"
     },
     {
       "name": "p3",
-      "aria": "The fold",
-      "segment": "t3",
-      "z": 10,
-      "top": "77%",
-      "html": "      <h2>Folded, not broken.</h2>\n      <p>Each cell pivots about the edge it shares with its neighbour, so that edge never moves. Nothing tears.</p>"
+      "aria": "Recursion",
+      "z": 30,
+      "html": "      <h2>Then put it inside itself.</h2>\n      <p>Each copy scaled by the same ratio and turned by the same angle. The map preserves angles, which is why every repeat still reads as the same building.</p>",
+      "top": "21%",
+      "segment": "t3"
     },
     {
       "name": "p4",
-      "aria": "The return",
-      "segment": "t4",
-      "z": 10,
-      "top": "29%",
-      "html": "      <h2>And it stands straight again.</h2>\n      <p>One light well. Nothing was added and nothing was lost.</p>\n      <button class=\"note-button\"><span aria-hidden=\"true\">↑</span><span>Fold it back</span></button>"
+      "aria": "Clones",
+      "z": 30,
+      "html": "      <h2>Nine of it, offset.</h2>\n      <p>Duplicated and slid out of register, then allowed to fall back into a grid it was never built for.</p>",
+      "top": "78%",
+      "segment": "t4"
+    },
+    {
+      "name": "p5",
+      "aria": "The illusion",
+      "z": 30,
+      "html": "      <h2>And it was flat all along.</h2>\n      <p>Turn the whole thing on its own axis and the depth goes with it. One picture. Nothing was ever added.</p>\n      <button class=\"note-button\"><span aria-hidden=\"true\">↑</span><span>Fold it back</span></button>",
+      "top": "26%",
+      "segment": "t5"
     }
   ]
 }
