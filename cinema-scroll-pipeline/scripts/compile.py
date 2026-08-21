@@ -29,6 +29,8 @@ PROPS = {
     "x": ("transform", 0.0, "px"),
     "y": ("transform", 0.0, "px"),
     "scale": ("transform", 1.0, ""),
+    "scaleX": ("transform", 1.0, ""),
+    "scaleY": ("transform", 1.0, ""),
     "rotate": ("transform", 0.0, "deg"),
     "rotateX": ("transform", 0.0, "deg"),
     "rotateY": ("transform", 0.0, "deg"),
@@ -236,8 +238,14 @@ def css_for_layer(index, layer):
         parts.append(f"rotateY({sum_expr(p, 'rotateY', v, '0deg')})")
     parts.append(f"rotate({rot_expr})")
     parts.append(f"scale({scale_expr})")
+    if "scaleX" in v:
+        parts.append(f"scaleX({sum_expr(p, 'scaleX', v, '1')})")
+    if "scaleY" in v:
+        parts.append(f"scaleY({sum_expr(p, 'scaleY', v, '1')})")
     lines.append("  transform: " + " ".join(parts) + ";")
-    if "clip" in v:
+    if layer.get("clipRaw"):
+        lines.append(f"  clip-path: {layer['clipRaw']};")
+    elif "clip" in v:
         lines.append(f"  clip-path: {clip_rule(p, layer.get('clipMode', 'wipe-left'), f'layer {index}')};")
     if layer.get("perspective") or "rotateX" in v or "rotateY" in v:
         lines.append("  transform-style: preserve-3d;")
