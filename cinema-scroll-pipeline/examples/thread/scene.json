@@ -1,0 +1,467 @@
+{
+  "title": "Thread",
+  "description": "One continuous fall, from a mountain range to a single woven thread.",
+  "aria": "A scroll descent from mountain to thread",
+  "scrollHeight": 4200,
+  "progressSpan": 4200,
+  "smoothing": 0.1,
+  "mouseSmoothing": 0.1,
+  "tint": "14, 20, 30",
+  "stage": {
+    "background": "#0a0d12"
+  },
+  "font": {
+    "family": "Ogg Medium",
+    "url": "https://dcym8fthxf5uu.cloudfront.net/fonts/247a073c-29f5-4a89-aa3a-741020f346fc/OggText-Medium.woff2",
+    "weight": 500
+  },
+  "segments": {
+    "s1": [
+      -1,
+      0,
+      700,
+      1120
+    ],
+    "s2": [
+      700,
+      1120,
+      1620,
+      2040
+    ],
+    "s3": [
+      1620,
+      2040,
+      2540,
+      2960
+    ],
+    "s4": [
+      2540,
+      2960,
+      3460,
+      3880
+    ],
+    "s5": [
+      3460,
+      3880,
+      5600,
+      5800
+    ]
+  },
+  "layers": [
+    {
+      "name": "range",
+      "src": "raw/01-1-range.webp",
+      "z": 0,
+      "fit": "cover",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1,
+        "opacity": 1,
+        "blur": "0px"
+      },
+      "parallax": {
+        "x": "-14px",
+        "y": "-7px"
+      },
+      "tracks": [
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "s2.enter",
+            "snap": 1.9
+          },
+          "amount": 0.85
+        },
+        {
+          "prop": "blur",
+          "drive": "s2.enter",
+          "amount": "9px"
+        },
+        {
+          "prop": "opacity",
+          "drive": "s2.enter",
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "village",
+      "src": "raw/02-2-village.webp",
+      "z": 1,
+      "fit": "cover",
+      "clipMode": "iris",
+      "origin": "50% 68%",
+      "base": {
+        "scale": 1.46,
+        "opacity": 0,
+        "blur": "11px",
+        "clip": 0,
+        "contrast": 0.94
+      },
+      "parallax": {
+        "x": "-18px",
+        "y": "-9px"
+      },
+      "tracks": [
+        {
+          "prop": "clip",
+          "drive": {
+            "of": "s2.enter",
+            "snap": 1.7
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": "s2.enter",
+          "amount": 1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "s2.enter",
+            "back": 1.1
+          },
+          "amount": -0.46
+        },
+        {
+          "prop": "blur",
+          "drive": "s2.enter",
+          "amount": "-11px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "s2.enter",
+          "amount": 0.1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "s3.enter",
+            "snap": 1.9
+          },
+          "amount": 0.85
+        },
+        {
+          "prop": "blur",
+          "drive": "s3.enter",
+          "amount": "9px"
+        },
+        {
+          "prop": "opacity",
+          "drive": "s3.enter",
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "lane",
+      "src": "raw/03-3-lane.webp",
+      "z": 2,
+      "fit": "cover",
+      "clipMode": "iris",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1.46,
+        "opacity": 0,
+        "blur": "11px",
+        "clip": 0,
+        "contrast": 0.94
+      },
+      "parallax": {
+        "x": "-22px",
+        "y": "-11px"
+      },
+      "tracks": [
+        {
+          "prop": "clip",
+          "drive": {
+            "of": "s3.enter",
+            "snap": 1.7
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": "s3.enter",
+          "amount": 1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "s3.enter",
+            "back": 1.1
+          },
+          "amount": -0.46
+        },
+        {
+          "prop": "blur",
+          "drive": "s3.enter",
+          "amount": "-11px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "s3.enter",
+          "amount": 0.1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "s4.enter",
+            "snap": 1.9
+          },
+          "amount": 0.85
+        },
+        {
+          "prop": "blur",
+          "drive": "s4.enter",
+          "amount": "9px"
+        },
+        {
+          "prop": "opacity",
+          "drive": "s4.enter",
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "loom",
+      "src": "raw/04-4-loom.webp",
+      "z": 3,
+      "fit": "cover",
+      "clipMode": "iris",
+      "origin": "50% 66%",
+      "base": {
+        "scale": 1.46,
+        "opacity": 0,
+        "blur": "11px",
+        "clip": 0,
+        "contrast": 0.94
+      },
+      "parallax": {
+        "x": "-26px",
+        "y": "-13px"
+      },
+      "tracks": [
+        {
+          "prop": "clip",
+          "drive": {
+            "of": "s4.enter",
+            "snap": 1.7
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": "s4.enter",
+          "amount": 1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "s4.enter",
+            "back": 1.1
+          },
+          "amount": -0.46
+        },
+        {
+          "prop": "blur",
+          "drive": "s4.enter",
+          "amount": "-11px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "s4.enter",
+          "amount": 0.1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "s5.enter",
+            "snap": 1.9
+          },
+          "amount": 0.8
+        },
+        {
+          "prop": "blur",
+          "drive": "s5.enter",
+          "amount": "9px"
+        },
+        {
+          "prop": "opacity",
+          "drive": "s5.enter",
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "weave",
+      "src": "raw/05-5-weave.webp",
+      "z": 4,
+      "fit": "cover",
+      "clipMode": "iris",
+      "origin": "50% 50%",
+      "base": {
+        "scale": 1.5,
+        "opacity": 0,
+        "blur": "13px",
+        "clip": 0,
+        "contrast": 0.92,
+        "saturate": 0.9
+      },
+      "parallax": {
+        "x": "-30px",
+        "y": "-15px"
+      },
+      "tracks": [
+        {
+          "prop": "clip",
+          "drive": {
+            "of": "s5.enter",
+            "snap": 1.6
+          },
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": "s5.enter",
+          "amount": 1
+        },
+        {
+          "prop": "scale",
+          "drive": {
+            "of": "s5.enter",
+            "back": 1.12
+          },
+          "amount": -0.44
+        },
+        {
+          "prop": "blur",
+          "drive": "s5.enter",
+          "amount": "-13px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "s5.enter",
+          "amount": 0.16
+        },
+        {
+          "prop": "saturate",
+          "drive": "s5.enter",
+          "amount": 0.22
+        }
+      ]
+    },
+    {
+      "name": "dust",
+      "src": "raw/06-6-dust.webp",
+      "z": 5,
+      "fit": "cover",
+      "blend": "screen",
+      "origin": "60% 30%",
+      "base": {
+        "scale": 1.1,
+        "opacity": 0.34,
+        "rotate": "0deg"
+      },
+      "parallax": {
+        "x": "-40px",
+        "y": "-20px"
+      },
+      "tracks": [
+        {
+          "prop": "x",
+          "drive": "progress",
+          "amount": "150px"
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "6deg"
+        },
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.3
+        },
+        {
+          "prop": "opacity",
+          "drive": "s5.enter",
+          "amount": -0.16
+        }
+      ]
+    }
+  ],
+  "shade": {
+    "drive": 1,
+    "top": 0.34,
+    "mid": 0.14,
+    "bottom": 0.42,
+    "liftAt": -1
+  },
+  "extraCss": "\n/* scrim above the imagery, below the text */\n.shade { z-index: 7 !important; }\n",
+  "chrome": "      <header class=\"site-header\" aria-label=\"Primary navigation\">\n        <a class=\"site-logo\" href=\"#cinema\">Thread</a>\n        <nav class=\"site-nav\" aria-label=\"Main menu\">\n          <a href=\"#cinema\">The descent</a>\n          <a href=\"#cinema\">About</a>\n        </nav>\n      </header>",
+  "panels": [
+    {
+      "name": "hero",
+      "aria": "Thread",
+      "z": 9,
+      "bottom": "clamp(56px, 16vh, 220px)",
+      "width": "min(720px, calc(100vw - 40px))",
+      "html": "      <h1>THREAD</h1>\n      <p>Every scale of this is the same story. Keep scrolling and it gets smaller until it is one strand.</p>",
+      "base": {
+        "opacity": 1,
+        "scale": 1
+      },
+      "tracks": [
+        {
+          "prop": "y",
+          "drive": "s1.exit",
+          "amount": "-90px"
+        },
+        {
+          "prop": "scale",
+          "drive": "s1.exit",
+          "amount": -0.05
+        },
+        {
+          "prop": "opacity",
+          "drive": "s1.exit",
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "p2",
+      "aria": "The village",
+      "segment": "s2",
+      "z": 10,
+      "top": "72%",
+      "html": "      <h2>Closer, and it has rooftops.</h2>\n      <p>What read as a smudge on a ridge turns out to be a few hundred lives stacked up a slope.</p>"
+    },
+    {
+      "name": "p3",
+      "aria": "The lane",
+      "segment": "s3",
+      "z": 10,
+      "top": "74%",
+      "html": "      <h2>Closer, and it has a lane.</h2>\n      <p>Everything the village needs, arranged along one wet corridor barely wide enough for two people.</p>"
+    },
+    {
+      "name": "p4",
+      "aria": "The loom",
+      "segment": "s4",
+      "z": 10,
+      "top": "22%",
+      "html": "      <h2>Closer, and someone is working.</h2>\n      <p>A frame, a shuttle, and tension held by the weight of a body leaning back.</p>"
+    },
+    {
+      "name": "p5",
+      "aria": "The thread",
+      "segment": "s5",
+      "z": 10,
+      "top": "26%",
+      "html": "      <h2>And this is the whole of it.</h2>\n      <p>One strand crossing another, repeated until it becomes cloth, a trade, a hillside, a range you can see from the far side of a valley.</p>\n      <button class=\"note-button\"><span aria-hidden=\"true\">↑</span><span>Scroll back up</span></button>"
+    }
+  ]
+}

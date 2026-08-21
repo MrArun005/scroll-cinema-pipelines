@@ -116,6 +116,9 @@
    * driver * amount. That additive model is what lets one layer answer to
    * scroll progress, a segment, and the pointer at the same time.
    */
+  // must match UNIT_TOKEN in compile.py
+  const UNIT_TOKEN = { "%": "pct" };
+
   function accumulate(vars, ctx) {
     const out = {};
     for (const prop in vars) {
@@ -129,7 +132,8 @@
             value += resolveDriver(tracks[i].drive, ctx) * tracks[i].amount;
           }
         }
-        out[unit ? `${prop}-${unit}` : prop] = { value, unit, prop };
+        const token = UNIT_TOKEN[unit] || unit;
+        out[token ? `${prop}-${token}` : prop] = { value, unit, prop };
       }
     }
     return out;

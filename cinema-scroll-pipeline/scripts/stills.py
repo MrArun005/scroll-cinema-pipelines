@@ -86,7 +86,8 @@ def accumulate(vars_, ctx):
             val = spec["base"] + sum(
                 resolve(t["drive"], ctx) * t["amount"] for t in spec["tracks"]
             )
-            out[f"{prop}-{unit}" if unit else prop] = (val, unit)
+            token = {"%": "pct"}.get(unit, unit)
+            out[f"{prop}-{token}" if token else prop] = (val, unit)
     return out
 
 

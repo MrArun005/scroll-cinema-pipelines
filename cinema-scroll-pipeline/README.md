@@ -82,6 +82,10 @@ saturate hue clip width height top bottom left right`.
 Set `perspective` on a layer (e.g. `"1500px"`) and `rotateX`/`rotateY` become real
 3D — a pair of layers can swing open like doors instead of tilting like stickers.
 
+**Percentages are relative to the layer's own size**, which is how you move a
+layer clear of the frame at any viewport: `-100%` of its own width always clears,
+where a `vw` figure that works on a desktop will not on a phone.
+
 **Units mix per axis.** A layer can drift `-46vw` with the scroll *and* `22px`
 with the pointer; each unit becomes its own variable and the generated `calc()`
 sums them.
@@ -113,6 +117,19 @@ focus rather than simply appearing.
 | `{"of": "...", "snap": 2.2}` | front-loaded: fast out, long settle |
 | `{"of": "...", "back": 1.15}` | overshoots past the target, then lands |
 | `{"of": "...", "oneMinus": true}` | inverted |
+
+### Portrait
+
+A layer sized in `vw` with `height: auto` collapses vertically on a phone — a
+`112vw` landscape image is only about 29% of the screen height at 390x844. Give
+such a layer a `portrait` override and it is sized by height there instead:
+
+```jsonc
+{ "portrait": "height: 116vh; width: auto; max-width: none" }
+```
+
+Emitted as `@media (max-aspect-ratio: 4/5)`. Layers using `fit: "cover"` never
+need it.
 
 ### Groups
 

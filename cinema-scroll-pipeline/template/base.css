@@ -104,6 +104,8 @@ button {
 .story-panel h1,
 .story-panel h2 {
   margin: 0;
+  overflow-wrap: break-word;
+  text-wrap: balance;
   color: var(--paper);
   font-family: "__DISPLAY_FONT__", Georgia, serif;
   font-weight: 500;
@@ -112,19 +114,19 @@ button {
 }
 
 .story-panel h1 {
-  font-size: clamp(3rem, 11vw, 14rem);
-  line-height: 0.78;
+  font-size: clamp(2.1rem, 11vw, 14rem);
+  line-height: 0.82;
 }
 
 .story-panel h2 {
-  font-size: clamp(2.45rem, 5vw, 4.75rem);
+  font-size: clamp(1.72rem, 5vw, 4.75rem);
 }
 
 .story-panel p {
   width: min(520px, 100%);
   margin: 26px auto 0;
   color: var(--paper);
-  font-size: clamp(1rem, 1.2vw, 1.18rem);
+  font-size: clamp(0.94rem, 1.2vw, 1.18rem);
   font-weight: 500;
   line-height: 1.18;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.42);
@@ -164,7 +166,7 @@ button {
 .facts dt {
   color: var(--paper);
   font-family: "__DISPLAY_FONT__", Georgia, serif;
-  font-size: clamp(2.5rem, 4vw, 4.2rem);
+  font-size: clamp(1.85rem, 4vw, 4.2rem);
   font-weight: 500;
   line-height: 0.9;
   text-shadow: 0 14px 34px var(--shadow);
@@ -242,6 +244,15 @@ button {
 }
 
 @media (max-width: 640px) {
+  .story-panel {
+    width: min(760px, calc(100vw - 28px)) !important;
+  }
+  .site-nav a {
+    font-size: 16px;
+  }
+  .facts {
+    gap: 14px;
+  }
   .site-header {
     grid-template-columns: 1fr auto;
     gap: 18px;

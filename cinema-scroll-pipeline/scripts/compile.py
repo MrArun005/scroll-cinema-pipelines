@@ -128,9 +128,17 @@ def build_vars(spec, segments, label):
     return out
 
 
+UNIT_TOKEN = {"%": "pct"}
+
+
+def unit_token(u):
+    """A unit as it appears in a CSS custom-property name."""
+    return UNIT_TOKEN.get(u, u)
+
+
 def var_names(prefix, prop, buckets):
     """CSS variable name per (prop, unit) bucket."""
-    return [f"{prefix}-{prop}{('-' + u) if u else ''}" for u in buckets]
+    return [f"{prefix}-{prop}{('-' + unit_token(u)) if u else ''}" for u in buckets]
 
 
 def sum_expr(prefix, prop, vars_, fallback, extra=None):
@@ -255,6 +263,16 @@ def css_for_layer(index, layer):
         lines.append(f"  mix-blend-mode: {layer['blend']};")
 
     lines.append("}")
+
+    # A layer sized in vw with height:auto collapses vertically on a portrait
+    # viewport -- a 112vw landscape image is barely a third of the screen
+    # height on a phone. `portrait` lets it be sized by height there instead.
+    if layer.get('portrait'):
+        lines.append('')
+        lines.append('@media (max-aspect-ratio: 4/5) {')
+        lines.append(f"  .layer-{index} {{ {layer['portrait']}; }}")
+        lines.append('}')
+
     return "\n".join(lines)
 
 
