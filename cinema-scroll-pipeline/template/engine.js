@@ -32,6 +32,10 @@
   let mouseY = 0;
   let initialized = false;
   let rafPending = false;
+  // Borrowed from how ThreeUI's canvas components behave: do no work while the
+  // thing you are animating is not on screen. Without this, a pointermove over
+  // a footer recomputes every variable in the scene.
+  let onScreen = true;
 
   /* ---------- primitives ---------- */
 
@@ -170,6 +174,8 @@
 
   function update() {
     rafPending = false;
+    // variables keep their last values, which is the correct resting state
+    if (!onScreen) return;
 
     targetScroll = getScrollDistance();
     if (!initialized || reduceMotion.matches) {
@@ -275,11 +281,23 @@
 
   /* ---------- listeners ---------- */
 
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      (entries) => {
+        const wasOff = !onScreen;
+        onScreen = entries[0].isIntersecting;
+        if (onScreen && wasOff) requestTick();   // resync on the way back in
+      },
+      { rootMargin: "15% 0px" }
+    ).observe(section);
+  }
+
   window.addEventListener("scroll", requestTick, { passive: true });
   window.addEventListener("resize", requestTick);
   window.addEventListener(
     "pointermove",
     (event) => {
+      if (!onScreen) return;
       targetMouseX = event.clientX / window.innerWidth - 0.5;
       targetMouseY = event.clientY / window.innerHeight - 0.5;
       requestTick();
