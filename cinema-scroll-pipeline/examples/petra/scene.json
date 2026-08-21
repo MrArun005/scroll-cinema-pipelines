@@ -1,0 +1,607 @@
+{
+  "title": "Petra",
+  "description": "The Siq parts, Al-Khazneh arrives, and the desert takes over.",
+  "aria": "Petra cinematic scroll story",
+  "scrollHeight": 3800,
+  "progressSpan": 3800,
+  "smoothing": 0.11,
+  "mouseSmoothing": 0.1,
+  "tint": "16, 22, 42",
+  "stage": {
+    "background": "#0a0f16"
+  },
+  "font": {
+    "family": "Ogg Medium",
+    "url": "https://dcym8fthxf5uu.cloudfront.net/fonts/247a073c-29f5-4a89-aa3a-741020f346fc/OggText-Medium.woff2",
+    "weight": 500
+  },
+  "segments": {
+    "intro": [
+      -1,
+      0,
+      80,
+      620
+    ],
+    "crack": [
+      420,
+      860,
+      4600,
+      4800
+    ],
+    "part": [
+      860,
+      1520,
+      1900,
+      2250
+    ],
+    "close": [
+      2050,
+      2650,
+      3150,
+      3450
+    ],
+    "open": [
+      3250,
+      3700,
+      4600,
+      4800
+    ]
+  },
+  "groups": [
+    {
+      "name": "back",
+      "z": 1,
+      "anchor": "top: 0; bottom: 0; left: -5vw; right: -5vw",
+      "origin": "50% 100%",
+      "base": {
+        "scale": 0.84,
+        "rotate": "-0.6deg"
+      },
+      "parallax": {
+        "x": "-18px",
+        "y": "-8px"
+      },
+      "tracks": [
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.22
+        },
+        {
+          "prop": "scale",
+          "drive": "open.enter",
+          "amount": 0.14
+        },
+        {
+          "prop": "rotate",
+          "drive": "open.enter",
+          "amount": "0.6deg"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "name": "sky",
+      "src": "raw/sky.webp",
+      "z": 0,
+      "fit": "cover",
+      "origin": "50% 100%",
+      "base": {
+        "scale": 1.1,
+        "rotate": "0.8deg"
+      },
+      "parallax": {
+        "x": "-10px",
+        "y": "-5px"
+      },
+      "tracks": [
+        {
+          "prop": "x",
+          "drive": "progress",
+          "amount": "-70px"
+        },
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.07
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "-1.6deg"
+        },
+        {
+          "prop": "hue",
+          "drive": "part.enter",
+          "amount": "-7deg"
+        },
+        {
+          "prop": "hue",
+          "drive": "open.enter",
+          "amount": "9deg"
+        },
+        {
+          "prop": "brightness",
+          "drive": "open.enter",
+          "amount": 0.1
+        },
+        {
+          "prop": "contrast",
+          "drive": "open.enter",
+          "amount": 0.08
+        }
+      ]
+    },
+    {
+      "name": "cliffs",
+      "group": "back",
+      "src": "raw/cliffs.webp",
+      "z": 1,
+      "fit": "contain",
+      "anchor": "top: auto; bottom: 0; left: 50%; right: auto; width: 114%; height: auto",
+      "translateX": "-50%",
+      "base": {
+        "y": "11vh",
+        "blur": "7px",
+        "brightness": 0.8,
+        "contrast": 0.94
+      },
+      "tracks": [
+        {
+          "prop": "y",
+          "drive": "open.enter",
+          "amount": "-11vh"
+        },
+        {
+          "prop": "blur",
+          "drive": "open.enter",
+          "amount": "-7px"
+        },
+        {
+          "prop": "brightness",
+          "drive": "open.enter",
+          "amount": 0.2
+        },
+        {
+          "prop": "contrast",
+          "drive": "open.enter",
+          "amount": 0.14
+        },
+        {
+          "prop": "saturate",
+          "drive": "open.enter",
+          "amount": 0.16
+        }
+      ]
+    },
+    {
+      "name": "treasury",
+      "src": "raw/treasury.webp",
+      "z": 2,
+      "anchor": "left: 50%",
+      "origin": "50% 46%",
+      "translateX": "-50%",
+      "base": {
+        "width": "58vw",
+        "bottom": "-4vh",
+        "scale": 1,
+        "opacity": 1,
+        "rotate": "0deg"
+      },
+      "parallax": {
+        "x": "22px",
+        "y": "10px"
+      },
+      "tracks": [
+        {
+          "prop": "width",
+          "drive": "crack.enter",
+          "amount": "9vw"
+        },
+        {
+          "prop": "width",
+          "drive": "part.enter",
+          "amount": "51vw"
+        },
+        {
+          "prop": "bottom",
+          "drive": "part.enter",
+          "amount": "-9vh"
+        },
+        {
+          "prop": "y",
+          "drive": "progress",
+          "amount": "-70px"
+        },
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.2
+        },
+        {
+          "prop": "rotate",
+          "drive": "part.exit",
+          "amount": "0.7deg"
+        },
+        {
+          "prop": "contrast",
+          "drive": "part.enter",
+          "amount": 0.12
+        },
+        {
+          "prop": "saturate",
+          "drive": "part.enter",
+          "amount": 0.1
+        },
+        {
+          "prop": "opacity",
+          "drive": "close.enter",
+          "amount": -1
+        },
+        {
+          "prop": "blur",
+          "drive": "close.enter",
+          "amount": "6px"
+        }
+      ]
+    },
+    {
+      "name": "reveal-detail",
+      "src": "raw/reveal-detail.webp",
+      "z": 3,
+      "anchor": "left: 50%; top: 50%; width: min(120vw, 2260px)",
+      "origin": "50% 50%",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "base": {
+        "scale": 1.18,
+        "opacity": 0,
+        "rotate": "-3deg",
+        "blur": "9px",
+        "contrast": 0.94
+      },
+      "parallax": {
+        "x": "14px",
+        "y": "10px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": "close.enter",
+          "amount": 1
+        },
+        {
+          "prop": "opacity",
+          "drive": "open.enter",
+          "amount": -1
+        },
+        {
+          "prop": "scale",
+          "drive": "close.enter",
+          "amount": -0.13
+        },
+        {
+          "prop": "rotate",
+          "drive": "close.enter",
+          "amount": "3deg"
+        },
+        {
+          "prop": "blur",
+          "drive": "close.enter",
+          "amount": "-9px"
+        },
+        {
+          "prop": "blur",
+          "drive": "open.enter",
+          "amount": "10px"
+        },
+        {
+          "prop": "contrast",
+          "drive": "close.enter",
+          "amount": 0.16
+        }
+      ]
+    },
+    {
+      "name": "dust-veil",
+      "src": "raw/dust-veil.webp",
+      "z": 4,
+      "fit": "cover",
+      "blend": "screen",
+      "origin": "72% 14%",
+      "base": {
+        "scale": 1.08,
+        "opacity": 0,
+        "rotate": "0deg"
+      },
+      "parallax": {
+        "x": "-32px",
+        "y": "-15px"
+      },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": "crack.enter",
+          "amount": 0.16
+        },
+        {
+          "prop": "opacity",
+          "drive": "part.enter",
+          "amount": 0.34
+        },
+        {
+          "prop": "opacity",
+          "drive": "open.enter",
+          "amount": -0.5
+        },
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.24
+        },
+        {
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "4deg"
+        },
+        {
+          "prop": "x",
+          "drive": "progress",
+          "amount": "110px"
+        }
+      ]
+    },
+    {
+      "name": "siq-left",
+      "src": "raw/siq-left.webp",
+      "z": 6,
+      "anchor": "left: 50%; bottom: -2vh; width: min(112vw, 2200px)",
+      "origin": "18% 54%",
+      "translateX": "-50%",
+      "base": {
+        "scale": 1,
+        "x": "-20vw",
+        "rotate": "0deg"
+      },
+      "parallax": {
+        "x": "26px",
+        "y": "12px"
+      },
+      "tracks": [
+        {
+          "prop": "x",
+          "drive": "crack.enter",
+          "amount": "-14vw"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "part.enter",
+            "pow": 1.5
+          },
+          "amount": "-60vw"
+        },
+        {
+          "prop": "rotate",
+          "drive": "crack.enter",
+          "amount": "-1.1deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": {
+            "of": "part.enter",
+            "pow": 1.5
+          },
+          "amount": "-4deg"
+        },
+        {
+          "prop": "y",
+          "drive": "progress",
+          "amount": "-70px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "part.enter",
+            "pow": 1.5
+          },
+          "amount": "-170px"
+        },
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.2
+        },
+        {
+          "prop": "scale",
+          "drive": "part.enter",
+          "amount": 0.28
+        },
+        {
+          "prop": "brightness",
+          "drive": "part.enter",
+          "amount": -0.12
+        }
+      ]
+    },
+    {
+      "name": "siq-right",
+      "src": "raw/siq-right.webp",
+      "z": 6,
+      "anchor": "left: 50%; bottom: -2vh; width: min(112vw, 2200px)",
+      "origin": "82% 54%",
+      "translateX": "-50%",
+      "base": {
+        "scale": 1,
+        "x": "20vw",
+        "rotate": "0deg"
+      },
+      "parallax": {
+        "x": "26px",
+        "y": "12px"
+      },
+      "tracks": [
+        {
+          "prop": "x",
+          "drive": "crack.enter",
+          "amount": "14vw"
+        },
+        {
+          "prop": "x",
+          "drive": {
+            "of": "part.enter",
+            "pow": 1.5
+          },
+          "amount": "60vw"
+        },
+        {
+          "prop": "rotate",
+          "drive": "crack.enter",
+          "amount": "1.1deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": {
+            "of": "part.enter",
+            "pow": 1.5
+          },
+          "amount": "4deg"
+        },
+        {
+          "prop": "y",
+          "drive": "progress",
+          "amount": "-70px"
+        },
+        {
+          "prop": "y",
+          "drive": {
+            "of": "part.enter",
+            "pow": 1.5
+          },
+          "amount": "-170px"
+        },
+        {
+          "prop": "scale",
+          "drive": "progress",
+          "amount": 0.2
+        },
+        {
+          "prop": "scale",
+          "drive": "part.enter",
+          "amount": 0.28
+        },
+        {
+          "prop": "brightness",
+          "drive": "part.enter",
+          "amount": -0.12
+        }
+      ]
+    }
+  ],
+  "shade": {
+    "drive": {
+      "sum": [
+        "crack.enter",
+        "part.enter"
+      ],
+      "clamp": true
+    },
+    "top": 0.46,
+    "mid": 0.26,
+    "bottom": 0.5,
+    "liftAt": 0.01
+  },
+  "extraCss": "\n/* scrim above all imagery, below the text */\n.shade { z-index: 7 !important; }\n",
+  "chrome": "      <header class=\"site-header\" aria-label=\"Primary navigation\">\n        <a class=\"site-logo\" href=\"#cinema\">Jordan</a>\n        <nav class=\"site-nav\" aria-label=\"Main menu\">\n          <a href=\"#cinema\">The Siq</a>\n          <a href=\"#cinema\">Al-Khazneh</a>\n          <a href=\"#cinema\">Wadi Rum</a>\n          <a href=\"#cinema\">Visiting</a>\n        </nav>\n      </header>",
+  "panels": [
+    {
+      "name": "hero",
+      "aria": "Petra",
+      "z": 8,
+      "top": "clamp(104px, 16vh, 184px)",
+      "width": "min(94vw, 1500px)",
+      "html": "      <h1>PETRA</h1>",
+      "base": {
+        "opacity": 1,
+        "scale": 1,
+        "rotate": "0deg"
+      },
+      "tracks": [
+        {
+          "prop": "y",
+          "drive": "intro.exit",
+          "amount": "-200px"
+        },
+        {
+          "prop": "scale",
+          "drive": "intro.exit",
+          "amount": -0.08
+        },
+        {
+          "prop": "rotate",
+          "drive": "intro.exit",
+          "amount": "-1.4deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": "intro.exit",
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "intro-copy",
+      "aria": "Petra overview",
+      "z": 9,
+      "bottom": "clamp(48px, 20vh, 300px)",
+      "width": "min(560px, calc(100vw - 40px))",
+      "html": "      <p>A kilometre of shadowed sandstone, and then the wall opens.</p>\n      <div class=\"pill-row\" aria-label=\"Highlights\"><span>The Siq</span><span>Al-Khazneh</span><span>UNESCO</span></div>",
+      "base": {
+        "opacity": 1,
+        "scale": 1
+      },
+      "tracks": [
+        {
+          "prop": "y",
+          "drive": "intro.exit",
+          "amount": "84px"
+        },
+        {
+          "prop": "scale",
+          "drive": "intro.exit",
+          "amount": -0.04
+        },
+        {
+          "prop": "opacity",
+          "drive": "intro.exit",
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "name": "part-panel",
+      "aria": "The approach",
+      "segment": "part",
+      "z": 10,
+      "top": "61%",
+      "html": "      <h2>The canyon does the reveal for you.</h2>\n      <p>Nothing of Al-Khazneh is visible until the Siq allows it. The walls hold the view back for a kilometre, then release it all at once.</p>\n      <dl class=\"facts\"><div><dt>1.2km</dt><dd>Length of the Siq approach</dd></div><div><dt>40m</dt><dd>Height of the carved facade</dd></div></dl>"
+    },
+    {
+      "name": "close-panel",
+      "aria": "The carving",
+      "segment": "close",
+      "z": 10,
+      "top": "28%",
+      "html": "      <h2>Cut down, not built up.</h2>\n      <p>Carved from the cornice downward, straight into the cliff, so nothing could be corrected once the chisel had passed.</p>"
+    },
+    {
+      "name": "open-panel",
+      "aria": "Beyond the city",
+      "segment": "open",
+      "z": 10,
+      "top": "42%",
+      "html": "      <h2>And then the desert takes over.</h2>\n      <p>Past the tombs the sandstone opens into Wadi Rum, where the same rock that was carved into a treasury is simply left standing.</p>\n      <button class=\"note-button\"><span aria-hidden=\"true\">↗</span><span>Plan the route</span></button>"
+    }
+  ]
+}

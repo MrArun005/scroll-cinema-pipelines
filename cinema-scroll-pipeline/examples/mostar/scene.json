@@ -1,0 +1,215 @@
+{
+  "title": "Mostar city",
+  "description": "A cinematic three-screen scroll story for Mostar city.",
+  "aria": "Mostar cinematic scroll story",
+  "scrollHeight": 3700,
+  "progressSpan": 2700,
+  "smoothing": 0.14,
+  "mouseSmoothing": 0.12,
+  "tint": "74, 181, 224",
+  "stage": { "background": "#7fb4d4" },
+
+  "font": {
+    "family": "Ogg Medium",
+    "url": "https://dcym8fthxf5uu.cloudfront.net/fonts/247a073c-29f5-4a89-aa3a-741020f346fc/OggText-Medium.woff2",
+    "weight": 500
+  },
+
+  "segments": {
+    "intro": [-1, 0, 90, 650],
+    "frame2": [560, 900, 1300, 1620],
+    "frame3": [1760, 2140, 2540, 2700]
+  },
+
+  "groups": [
+    {
+      "name": "back",
+      "z": 1,
+      "anchor": "top: 0; bottom: 0; left: -3vw; right: -3vw",
+      "origin": "50% 100%",
+      "base": { "scale": 0.76, "opacity": 1 },
+      "parallax": { "x": "-12px", "y": "-4px" },
+      "tracks": [
+        { "prop": "scale", "drive": "progress", "amount": 0.2 },
+        { "prop": "scale", "drive": "frame2.enter", "amount": 0.18 },
+        { "prop": "scale", "drive": "frame3.enter", "amount": 0.16 },
+        { "prop": "opacity", "drive": "frame2.active", "amount": -0.06 }
+      ]
+    }
+  ],
+
+  "layers": [
+    {
+      "name": "sky",
+      "src": "https://raft-blast-61784561.figma.site/_assets/v11/16b5007d9c93971e26ffe4e0e3e37946f6bd538c.png",
+      "z": 0,
+      "fit": "cover",
+      "tracks": [
+        { "prop": "blur", "drive": { "sum": ["frame2.active", "frame3.active"], "clamp": true }, "amount": "14px" },
+        { "prop": "brightness", "drive": { "sum": ["frame2.active", "frame3.active"], "clamp": true }, "amount": -0.255 }
+      ]
+    },
+    {
+      "name": "back-four",
+      "group": "back",
+      "src": "https://raft-blast-61784561.figma.site/_assets/v11/8a7f8af50e0ce92ec2e228e7b0b4112178c51cf1.png",
+      "z": 1,
+      "fit": "contain",
+      "anchor": "top: auto; bottom: 0; left: 48%; right: auto; width: 112%; height: auto",
+      "translateX": "-50%",
+      "translateY": "-110px",
+      "staticOpacity": 0.72,
+      "blend": "screen",
+      "base": { "y": "10vh", "scale": 0.78 },
+      "tracks": [
+        { "prop": "y", "drive": "progress", "amount": "10vh" },
+        { "prop": "scale", "drive": "progress", "amount": 0.16 }
+      ]
+    },
+    {
+      "name": "back-bazaar",
+      "group": "back",
+      "src": "https://raft-blast-61784561.figma.site/_assets/v11/864afe00e41e2fa20a5aa546e15cb807e0f81384.png",
+      "z": 3,
+      "fit": "contain",
+      "anchor": "top: auto; bottom: 0; left: 48%; right: auto; width: 112%; height: auto",
+      "translateX": "-50%",
+      "base": { "y": "20vh", "scale": 0.86 },
+      "tracks": [
+        { "prop": "y", "drive": "progress", "amount": "-8vh" },
+        { "prop": "blur", "drive": "frame2.active", "amount": "14px" },
+        { "prop": "brightness", "drive": "frame2.active", "amount": -0.255 },
+        { "prop": "brightness", "drive": "frame3.active", "amount": -0.06 },
+        { "prop": "saturate", "drive": "frame3.active", "amount": 0.18 }
+      ]
+    },
+    {
+      "name": "bridge",
+      "src": "https://raft-blast-61784561.figma.site/_assets/v11/c6a6d8ef49bca43f708aa852692942c45ec950d4.png",
+      "z": 4,
+      "anchor": "left: 50%",
+      "origin": "50% 48%",
+      "translateX": "-50%",
+      "base": { "width": "67.2vw", "bottom": "5vh", "scale": 1.02 },
+      "parallax": { "x": "18px", "y": "8px" },
+      "tracks": [
+        { "prop": "width", "drive": "frame2.enter", "to": "105vw" },
+        { "prop": "bottom", "drive": "frame2.enter", "amount": "-13vh" },
+        { "prop": "y", "drive": "progress", "amount": "-74px" },
+        { "prop": "y", "drive": "frame2.exit", "amount": "-760px" },
+        { "prop": "scale", "drive": "progress", "amount": 0.23 },
+        { "prop": "scale", "drive": "frame2.exit", "amount": 0.46 }
+      ]
+    },
+    {
+      "name": "frame-two",
+      "src": "https://raft-blast-61784561.figma.site/_assets/v11/ba75252bab2b1c510987b74837770f7bc8a6b2d4.png",
+      "z": 5,
+      "anchor": "left: 50%; top: 50%; width: min(122vw, 2160px)",
+      "origin": "50% 48%",
+      "translateX": "-50%",
+      "translateY": "-50%",
+      "base": { "scale": 1.06, "opacity": 0 },
+      "parallax": { "x": "10px", "y": "8px" },
+      "tracks": [
+        {
+          "prop": "opacity",
+          "drive": { "product": ["frame2.active", { "of": "frame3.enter", "oneMinus": true }] },
+          "amount": 1
+        },
+        { "prop": "y", "drive": "frame2.exit", "amount": "-150px" },
+        { "prop": "scale", "drive": "frame2.enter", "amount": 0.08 },
+        { "prop": "scale", "drive": "frame2.exit", "amount": 0.08 }
+      ]
+    },
+    {
+      "name": "splitframe-left",
+      "src": "https://raft-blast-61784561.figma.site/_assets/v11/7536d7b60a1fce482cf6edf3f0bffd3bad5d0f8a.png",
+      "z": 6,
+      "anchor": "left: 50%; bottom: -2vh; width: min(118vw, 2240px)",
+      "origin": "21% 52%",
+      "translateX": "-50%",
+      "base": { "scale": 1 },
+      "parallax": { "x": "22px", "y": "10px" },
+      "tracks": [
+        { "prop": "x", "drive": { "of": "frame2.enter", "pow": 1.5 }, "amount": "-46vw" },
+        { "prop": "y", "drive": "progress", "amount": "-74px" },
+        { "prop": "y", "drive": { "of": "frame2.enter", "pow": 1.5 }, "amount": "-180px" },
+        { "prop": "scale", "drive": "progress", "amount": 0.23 },
+        { "prop": "scale", "drive": "frame2.enter", "amount": 0.74 }
+      ]
+    },
+    {
+      "name": "splitframe-right",
+      "src": "https://raft-blast-61784561.figma.site/_assets/v11/392db6a6a6b98e868bd7f8d3f55bb719d51e5028.png",
+      "z": 6,
+      "anchor": "left: 50%; bottom: -2vh; width: min(118vw, 2240px)",
+      "origin": "79% 52%",
+      "translateX": "-50%",
+      "base": { "scale": 1 },
+      "parallax": { "x": "22px", "y": "10px" },
+      "tracks": [
+        { "prop": "x", "drive": { "of": "frame2.enter", "pow": 1.5 }, "amount": "46vw" },
+        { "prop": "y", "drive": "progress", "amount": "-74px" },
+        { "prop": "y", "drive": { "of": "frame2.enter", "pow": 1.5 }, "amount": "-180px" },
+        { "prop": "scale", "drive": "progress", "amount": 0.23 },
+        { "prop": "scale", "drive": "frame2.enter", "amount": 0.74 }
+      ]
+    }
+  ],
+
+  "shade": {
+    "drive": { "sum": ["frame2.active", "frame3.active"], "clamp": true },
+    "top": 0.465,
+    "mid": 0.42,
+    "bottom": 0.51
+  },
+
+  "chrome": "      <header class=\"site-header\" aria-label=\"Primary navigation\">\n        <a class=\"site-logo\" href=\"#cinema\">Bosnia and Herzegovina</a>\n        <nav class=\"site-nav\" aria-label=\"Main menu\">\n          <a href=\"#cinema\">Intro</a>\n          <a href=\"#bridge\">Bridge</a>\n          <a href=\"#bazaar\">Bazaar</a>\n          <a href=\"#routes\">Routes</a>\n        </nav>\n      </header>",
+
+  "panels": [
+    {
+      "name": "hero",
+      "aria": "Mostar",
+      "z": 3,
+      "top": "clamp(122px, 19vh, 205px)",
+      "width": "min(94vw, 1780px)",
+      "html": "      <h1>MOSTAR</h1>",
+      "base": { "opacity": 1, "scale": 1 },
+      "tracks": [
+        { "prop": "y", "drive": "intro.exit", "amount": "-210px" },
+        { "prop": "scale", "drive": "intro.exit", "amount": -0.08 },
+        { "prop": "opacity", "drive": "intro.exit", "amount": -1 }
+      ]
+    },
+    {
+      "name": "intro-copy",
+      "aria": "Mostar overview",
+      "z": 9,
+      "bottom": "clamp(56px, 28vh, 400px)",
+      "width": "min(560px, calc(100vw - 40px))",
+      "html": "      <p>A stone arch, emerald water, and a compact old city made for slow mornings, late light, and one unforgettable crossing.</p>\n      <div class=\"pill-row\" aria-label=\"Mostar highlights\"><span>Old Bridge</span><span>Neretva River</span><span>UNESCO old city</span></div>",
+      "base": { "opacity": 1 },
+      "tracks": [
+        { "prop": "y", "drive": "intro.exit", "amount": "90px" },
+        { "prop": "opacity", "drive": "intro.exit", "amount": -1 }
+      ]
+    },
+    {
+      "name": "bridge-panel",
+      "aria": "Old Bridge details",
+      "segment": "frame2",
+      "z": 10,
+      "top": "60%",
+      "html": "      <h2>The bridge is the city's compass.</h2>\n      <p>Stari Most links the banks of the Neretva and anchors a historic quarter shaped by Ottoman, Mediterranean, and European layers.</p>\n      <dl class=\"facts\"><div><dt>1566</dt><dd>Original bridge completed</dd></div><div><dt>2005</dt><dd>Old Bridge Area inscribed by UNESCO</dd></div></dl>"
+    },
+    {
+      "name": "bazaar-panel",
+      "aria": "Old town details",
+      "segment": "frame3",
+      "z": 10,
+      "top": "29%",
+      "html": "      <h2>The bazaar keeps Mostar close.</h2>\n      <p>Stone lanes, mosque courtyards, copper stalls, and riverside coffee stay within a short walk of Stari Most.</p>"
+    }
+  ]
+}

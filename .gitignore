@@ -1,0 +1,17 @@
+# build output — regenerable from scene files
+out/
+frames-*/
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# stills scaffolding written by scripts/stills.py
+_still_*.html
+_shot_*.html
+
+# os
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,271 @@
+:root {
+  --mx: 0;
+  --my: 0;
+  --progress: 0;
+  --shade-top-alpha: 0;
+  --shade-mid-alpha: 0;
+  --shade-bottom-alpha: 0;
+  --shade-z: 0;
+  --tint: __TINT__;
+  --counter-scale: 1;
+  --counter-screen-top: 0px;
+  --counter-parent-top: 0px;
+  --ink: #111411;
+  --paper: #fdf1e1;
+  --shadow: rgba(0, 0, 0, 0.32);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--paper);
+  background: #0b1110;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+  background: #0b1110;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  overflow-x: clip;
+  background: #0b1110;
+}
+
+button {
+  border: 0;
+  font: inherit;
+}
+
+.site-shell {
+  min-height: 100vh;
+}
+
+/* ---------- the scroll rig ----------
+ * A tall section with a sticky viewport-height stage. Scroll distance through
+ * it is measured in absolute pixels, which is what the scene timeline uses.
+ */
+
+.cinema-scroll {
+  position: relative;
+  height: calc(100vh + __SCROLL_HEIGHT__px);
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+  isolation: isolate;
+  background: __STAGE_BG__;
+}
+
+.world,
+.scene-img,
+.shade,
+.story-panel,
+.site-header,
+.stage-chrome {
+  position: absolute;
+}
+
+.world {
+  inset: 0;
+  overflow: hidden;
+}
+
+.scene-img {
+  display: block;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform, opacity, filter;
+  pointer-events: none;
+}
+
+.shade {
+  inset: 0;
+  z-index: var(--shade-z);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--tint), var(--shade-top-alpha)) 0%,
+    rgba(var(--tint), var(--shade-mid-alpha)) 48%,
+    rgba(var(--tint), var(--shade-bottom-alpha)) 100%
+  );
+}
+
+/* ---------- panels ---------- */
+
+.story-panel h1,
+.story-panel h2 {
+  margin: 0;
+  color: var(--paper);
+  font-family: "__DISPLAY_FONT__", Georgia, serif;
+  font-weight: 500;
+  line-height: 0.95;
+  text-shadow: 0 16px 38px var(--shadow);
+}
+
+.story-panel h1 {
+  font-size: clamp(3rem, 11vw, 14rem);
+  line-height: 0.78;
+}
+
+.story-panel h2 {
+  font-size: clamp(2.45rem, 5vw, 4.75rem);
+}
+
+.story-panel p {
+  width: min(520px, 100%);
+  margin: 26px auto 0;
+  color: var(--paper);
+  font-size: clamp(1rem, 1.2vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.18;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.42);
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.pill-row span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 25px;
+  color: var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 0.98rem;
+  font-weight: 500;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 6vw, 86px);
+  width: min(470px, 100%);
+  margin: clamp(34px, 6vh, 72px) auto 0;
+}
+
+.facts dt {
+  color: var(--paper);
+  font-family: "__DISPLAY_FONT__", Georgia, serif;
+  font-size: clamp(2.5rem, 4vw, 4.2rem);
+  font-weight: 500;
+  line-height: 0.9;
+  text-shadow: 0 14px 34px var(--shadow);
+}
+
+.facts dd {
+  margin: 18px 0 0;
+  color: var(--paper);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.14;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.42);
+}
+
+.note-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  margin-top: 28px;
+  gap: 12px;
+  padding: 0 28px;
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.note-button span:first-child {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* ---------- optional chrome ---------- */
+
+.site-header {
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) auto minmax(200px, 1fr);
+  align-items: center;
+  gap: 32px;
+  padding: 32px;
+  color: rgba(253, 241, 225, 0.86);
+}
+
+.site-logo {
+  justify-self: start;
+  color: rgba(253, 241, 225, 0.92);
+  font-family: "__DISPLAY_FONT__", Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 2.2vw, 44px);
+}
+
+.site-nav a {
+  color: rgba(253, 241, 225, 0.86);
+  font-size: 20px;
+  line-height: 1;
+  text-decoration: none;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    padding: 24px;
+  }
+  .site-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: flex-start;
+    gap: 18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .site-nav::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scene-img,
+  .story-panel {
+    transition: none;
+  }
+}
