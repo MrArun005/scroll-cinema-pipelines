@@ -30,6 +30,9 @@ PROPS = {
     "y": ("transform", 0.0, "px"),
     "scale": ("transform", 1.0, ""),
     "rotate": ("transform", 0.0, "deg"),
+    "rotateX": ("transform", 0.0, "deg"),
+    "rotateY": ("transform", 0.0, "deg"),
+    "clip": ("clip", 1.0, ""),
     "opacity": ("plain", 1.0, ""),
     "blur": ("filter", 0.0, "px"),
     "brightness": ("filter", 1.0, ""),
@@ -167,8 +170,28 @@ def validate_driver(spec, segments, where):
         if "of" in spec:
             validate_driver(spec["of"], segments, where)
             return
+        if any(k in spec for k in ("back", "snap", "pow", "clamp", "oneMinus")):
+            return
         die(f"{where}: driver object needs mouse/sum/product/of")
     die(f"{where}: bad driver {spec!r}")
+
+
+CLIP_MODES = {
+    # each reveals as var goes 0 -> 1
+    "wipe-left":  "inset(0 calc(100% - var({v}) * 100%) 0 0)",
+    "wipe-right": "inset(0 0 0 calc(100% - var({v}) * 100%))",
+    "wipe-up":    "inset(calc(100% - var({v}) * 100%) 0 0 0)",
+    "wipe-down":  "inset(0 0 calc(100% - var({v}) * 100%) 0)",
+    "iris":       "circle(calc(var({v}) * 78%) at 50% 50%)",
+    "bars":       "inset(calc((1 - var({v})) * 50%) 0 calc((1 - var({v})) * 50%) 0)",
+    "curtain":    "inset(0 calc((1 - var({v})) * 50%) 0 calc((1 - var({v})) * 50%))",
+}
+
+
+def clip_rule(prefix, mode, where):
+    if mode not in CLIP_MODES:
+        die(f"{where}: unknown clip mode {mode!r} (known: {', '.join(sorted(CLIP_MODES))})")
+    return CLIP_MODES[mode].format(v=f"{prefix}-clip")
 
 
 def css_for_layer(index, layer):
@@ -195,10 +218,22 @@ def css_for_layer(index, layer):
     y_expr = sum_expr(p, "y", v, layer.get("translateY", "0px"), layer.get("translateY"))
     scale_expr = sum_expr(p, "scale", v, "1")
     rot_expr = sum_expr(p, "rotate", v, "0deg")
-    lines.append(
-        f"  transform: translate3d({x_expr}, {y_expr}, 0) "
-        f"rotate({rot_expr}) scale({scale_expr});"
-    )
+    parts = [f"translate3d({x_expr}, {y_expr}, 0)"]
+    # perspective must come first in the function list to apply to this element
+    if layer.get("perspective"):
+        parts.insert(0, f"perspective({layer['perspective']})")
+    if "rotateX" in v:
+        parts.append(f"rotateX({sum_expr(p, 'rotateX', v, '0deg')})")
+    if "rotateY" in v:
+        parts.append(f"rotateY({sum_expr(p, 'rotateY', v, '0deg')})")
+    parts.append(f"rotate({rot_expr})")
+    parts.append(f"scale({scale_expr})")
+    lines.append("  transform: " + " ".join(parts) + ";")
+    if "clip" in v:
+        lines.append(f"  clip-path: {clip_rule(p, layer.get('clipMode', 'wipe-left'), f'layer {index}')};")
+    if layer.get("perspective") or "rotateX" in v or "rotateY" in v:
+        lines.append("  transform-style: preserve-3d;")
+        lines.append("  backface-visibility: hidden;")
 
     if layer.get("origin"):
         lines.append(f"  transform-origin: {layer['origin']};")

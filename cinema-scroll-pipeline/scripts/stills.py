@@ -68,6 +68,14 @@ def resolve(spec, ctx):
         v = clamp(v)
     if spec.get("pow"):
         v = v ** spec["pow"]
+    if spec.get("back"):
+        c1 = 1.70158 if spec["back"] is True else spec["back"]
+        c3 = c1 + 1
+        t = v - 1
+        v = 1 + c3 * t * t * t + c1 * t * t
+    if spec.get("snap"):
+        k = 3 if spec["snap"] is True else spec["snap"]
+        v = 1 - (1 - clamp(v)) ** k
     return v
 
 

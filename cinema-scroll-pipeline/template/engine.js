@@ -93,6 +93,18 @@
       if (spec.oneMinus) v = 1 - v;
       if (spec.clamp) v = clamp(v);
       if (spec.pow) v = Math.pow(v, spec.pow);
+      // back: overshoots past 1 then settles, so a move lands with weight
+      if (spec.back) {
+        const c1 = spec.back === true ? 1.70158 : spec.back;
+        const c3 = c1 + 1;
+        const t = v - 1;
+        v = 1 + c3 * t * t * t + c1 * t * t;
+      }
+      // snap: front-loads the motion, fast out then a long settle
+      if (spec.snap) {
+        const k = spec.snap === true ? 3 : spec.snap;
+        v = 1 - Math.pow(1 - clamp(v), k);
+      }
       return v;
     }
 

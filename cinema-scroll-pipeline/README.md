@@ -76,12 +76,29 @@ the pointer at once:
 }
 ```
 
-Properties: `x y scale opacity blur brightness saturate width height top bottom
-left right`.
+Properties: `x y scale rotate rotateX rotateY opacity blur brightness contrast
+saturate hue clip width height top bottom left right`.
+
+Set `perspective` on a layer (e.g. `"1500px"`) and `rotateX`/`rotateY` become real
+3D — a pair of layers can swing open like doors instead of tilting like stickers.
 
 **Units mix per axis.** A layer can drift `-46vw` with the scroll *and* `22px`
 with the pointer; each unit becomes its own variable and the generated `calc()`
 sums them.
+
+### Transitions
+
+`clip` drives a `clip-path` from 0 to 1. Pick the shape with `clipMode`:
+
+| mode | effect |
+|---|---|
+| `wipe-left` / `-right` / `-up` / `-down` | directional wipe |
+| `iris` | circular reveal from the centre |
+| `bars` | letterbox opening vertically |
+| `curtain` | opens from the centre outward |
+
+Combine one with a `blur` track running to zero and the layer arrives *into*
+focus rather than simply appearing.
 
 ### Drivers
 
@@ -92,7 +109,9 @@ sums them.
 | `{"mouse": "x"}` | pointer offset from centre, −0.5→0.5 |
 | `{"sum": [...], "clamp": true}` | combined signals |
 | `{"product": [...]}` | multiplied |
-| `{"of": "frame2.enter", "pow": 1.5}` | re-eased |
+| `{"of": "frame2.enter", "pow": 1.5}` | re-eased, slower off the mark |
+| `{"of": "...", "snap": 2.2}` | front-loaded: fast out, long settle |
+| `{"of": "...", "back": 1.15}` | overshoots past the target, then lands |
 | `{"of": "...", "oneMinus": true}` | inverted |
 
 ### Groups

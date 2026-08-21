@@ -201,12 +201,18 @@
         },
         {
           "prop": "width",
-          "drive": "part.enter",
+          "drive": {
+            "of": "part.enter",
+            "back": 1.15
+          },
           "amount": "51vw"
         },
         {
           "prop": "bottom",
-          "drive": "part.enter",
+          "drive": {
+            "of": "part.enter",
+            "back": 1.15
+          },
           "amount": "-9vh"
         },
         {
@@ -259,7 +265,8 @@
         "opacity": 0,
         "rotate": "-3deg",
         "blur": "9px",
-        "contrast": 0.94
+        "contrast": 0.94,
+        "clip": 0
       },
       "parallax": {
         "x": "14px",
@@ -300,8 +307,17 @@
           "prop": "contrast",
           "drive": "close.enter",
           "amount": 0.16
+        },
+        {
+          "prop": "clip",
+          "drive": {
+            "of": "close.enter",
+            "snap": 1.8
+          },
+          "amount": 1
         }
-      ]
+      ],
+      "clipMode": "iris"
     },
     {
       "name": "dust-veil",
@@ -362,7 +378,8 @@
       "base": {
         "scale": 1,
         "x": "-20vw",
-        "rotate": "0deg"
+        "rotateY": "0deg",
+        "opacity": 1
       },
       "parallax": {
         "x": "26px",
@@ -371,7 +388,10 @@
       "tracks": [
         {
           "prop": "x",
-          "drive": "crack.enter",
+          "drive": {
+            "of": "crack.enter",
+            "snap": 2.4
+          },
           "amount": "-14vw"
         },
         {
@@ -380,20 +400,7 @@
             "of": "part.enter",
             "pow": 1.5
           },
-          "amount": "-60vw"
-        },
-        {
-          "prop": "rotate",
-          "drive": "crack.enter",
-          "amount": "-1.1deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": {
-            "of": "part.enter",
-            "pow": 1.5
-          },
-          "amount": "-4deg"
+          "amount": "-76vw"
         },
         {
           "prop": "y",
@@ -422,8 +429,38 @@
           "prop": "brightness",
           "drive": "part.enter",
           "amount": -0.12
+        },
+        {
+          "prop": "rotateY",
+          "drive": "crack.enter",
+          "amount": "5deg"
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "part.enter",
+            "snap": 2.2
+          },
+          "amount": "26deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": {
+            "of": "part.enter",
+            "pow": 1.5
+          },
+          "amount": "-2.5deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "close.enter",
+            "snap": 2
+          },
+          "amount": -1
         }
-      ]
+      ],
+      "perspective": "1500px"
     },
     {
       "name": "siq-right",
@@ -435,7 +472,8 @@
       "base": {
         "scale": 1,
         "x": "20vw",
-        "rotate": "0deg"
+        "rotateY": "0deg",
+        "opacity": 1
       },
       "parallax": {
         "x": "26px",
@@ -444,7 +482,10 @@
       "tracks": [
         {
           "prop": "x",
-          "drive": "crack.enter",
+          "drive": {
+            "of": "crack.enter",
+            "snap": 2.4
+          },
           "amount": "14vw"
         },
         {
@@ -453,20 +494,7 @@
             "of": "part.enter",
             "pow": 1.5
           },
-          "amount": "60vw"
-        },
-        {
-          "prop": "rotate",
-          "drive": "crack.enter",
-          "amount": "1.1deg"
-        },
-        {
-          "prop": "rotate",
-          "drive": {
-            "of": "part.enter",
-            "pow": 1.5
-          },
-          "amount": "4deg"
+          "amount": "76vw"
         },
         {
           "prop": "y",
@@ -495,8 +523,38 @@
           "prop": "brightness",
           "drive": "part.enter",
           "amount": -0.12
+        },
+        {
+          "prop": "rotateY",
+          "drive": "crack.enter",
+          "amount": "-5deg"
+        },
+        {
+          "prop": "rotateY",
+          "drive": {
+            "of": "part.enter",
+            "snap": 2.2
+          },
+          "amount": "-26deg"
+        },
+        {
+          "prop": "rotate",
+          "drive": {
+            "of": "part.enter",
+            "pow": 1.5
+          },
+          "amount": "2.5deg"
+        },
+        {
+          "prop": "opacity",
+          "drive": {
+            "of": "close.enter",
+            "snap": 2
+          },
+          "amount": -1
         }
-      ]
+      ],
+      "perspective": "1500px"
     }
   ],
   "shade": {
