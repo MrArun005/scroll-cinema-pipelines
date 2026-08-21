@@ -2,8 +2,8 @@
   "title": "Mirror Dimension",
   "description": "One street, folded along its own reflections.",
   "aria": "A scroll story in which a street folds into a mirrored geometry",
-  "scrollHeight": 4400,
-  "progressSpan": 4400,
+  "scrollHeight": 3800,
+  "progressSpan": 3800,
   "smoothing": 0.1,
   "mouseSmoothing": 0.09,
   "tint": "8, 12, 22",
@@ -19,56 +19,50 @@
     "intro": [
       -1,
       0,
-      80,
-      560
-    ],
-    "lookup": [
-      140,
-      560,
-      6000,
-      6200
+      120,
+      620
     ],
     "fracture": [
-      980,
-      1560,
-      6000,
-      6200
+      560,
+      1250,
+      5400,
+      5600
     ],
     "spin": [
-      1400,
-      2900,
-      6000,
-      6200
+      900,
+      2300,
+      5400,
+      5600
     ],
     "fold": [
-      2000,
-      3000,
-      6000,
-      6200
+      1500,
+      2500,
+      5400,
+      5600
     ],
     "collapse": [
+      2900,
       3500,
-      4100,
-      6000,
-      6200
+      5400,
+      5600
     ],
     "t2": [
-      980,
-      1560,
-      2050,
-      2450
+      620,
+      1250,
+      1750,
+      2150
     ],
     "t3": [
-      2050,
-      2750,
-      3150,
-      3450
+      1750,
+      2450,
+      2850,
+      3150
     ],
     "t4": [
+      2900,
       3500,
-      4100,
-      6200,
-      6400
+      5600,
+      5800
     ]
   },
   "layers": [
@@ -99,94 +93,40 @@
       ]
     },
     {
-      "name": "street",
-      "src": "raw/street.webp",
-      "z": 1,
-      "fit": "cover",
-      "origin": "50% 50%",
-      "base": {
-        "scale": 1.04,
-        "opacity": 1
-      },
-      "parallax": {
-        "x": "-14px",
-        "y": "-7px"
-      },
-      "tracks": [
-        {
-          "prop": "opacity",
-          "drive": {
-            "of": "lookup.enter",
-            "snap": 2
-          },
-          "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "lookup.enter",
-          "amount": 0.3
-        },
-        {
-          "prop": "blur",
-          "drive": "lookup.enter",
-          "amount": "14px"
-        }
-      ]
-    },
-    {
-      "name": "axis-flat",
+      "name": "plate",
       "src": "raw/axis.webp",
       "z": 2,
-      "fit": "cover",
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%",
       "origin": "50% 50%",
       "base": {
-        "scale": 1.5,
-        "opacity": 0,
-        "blur": "14px"
+        "scale": 1,
+        "opacity": 1,
+        "rotate": "0deg"
       },
       "parallax": {
-        "x": "-14px",
-        "y": "-7px"
+        "x": "14px",
+        "y": "7px"
       },
       "tracks": [
         {
-          "prop": "opacity",
-          "drive": {
-            "of": "lookup.enter",
-            "snap": 1.7
-          },
-          "amount": 1
+          "prop": "rotate",
+          "drive": "spin.enter",
+          "amount": "56.25deg"
         },
         {
-          "prop": "scale",
-          "drive": {
-            "of": "lookup.enter",
-            "back": 1.1
-          },
-          "amount": -0.46
-        },
-        {
-          "prop": "blur",
-          "drive": "lookup.enter",
-          "amount": "-14px"
+          "prop": "rotate",
+          "drive": "progress",
+          "amount": "14deg"
         },
         {
           "prop": "opacity",
           "drive": {
             "of": "fracture.enter",
-            "snap": 2
+            "snap": 1.2
           },
           "amount": -1
-        },
-        {
-          "prop": "scale",
-          "drive": "fracture.enter",
-          "amount": 0.34
-        },
-        {
-          "prop": "blur",
-          "drive": "fracture.enter",
-          "amount": "16px"
         }
       ]
     },
@@ -885,7 +825,6 @@
       "name": "resolve",
       "src": "raw/axis.webp",
       "z": 6,
-      "fit": "cover",
       "origin": "50% 50%",
       "base": {
         "scale": 1.55,
@@ -918,7 +857,10 @@
           "drive": "collapse.enter",
           "amount": "-16px"
         }
-      ]
+      ],
+      "anchor": "left: 50%; top: 50%; width: 118vmax; height: 118vmax; object-fit: cover",
+      "translateX": "-50%",
+      "translateY": "-50%"
     }
   ],
   "shade": {
@@ -937,7 +879,7 @@
       "z": 9,
       "bottom": "clamp(48px, 15vh, 210px)",
       "width": "min(1040px, calc(100vw - 40px))",
-      "html": "      <h1>MIRROR</h1>\n      <p>Look up, and the building is still the building. Only the rules holding it straight have been let go.</p>",
+      "html": "      <h1>MIRROR</h1>\n      <p>One light well, photographed straight up. Keep scrolling and the rules holding it straight are let go.</p>",
       "base": {
         "opacity": 1,
         "scale": 1
