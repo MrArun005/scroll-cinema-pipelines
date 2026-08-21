@@ -252,7 +252,6 @@ def css_for_layer(index, layer):
     elif "clip" in v:
         lines.append(f"  clip-path: {clip_rule(p, layer.get('clipMode', 'wipe-left'), f'layer {index}')};")
     if layer.get("perspective") or "rotateX" in v or "rotateY" in v:
-        lines.append("  transform-style: preserve-3d;")
         lines.append("  backface-visibility: hidden;")
 
     if layer.get("origin"):
@@ -268,6 +267,9 @@ def css_for_layer(index, layer):
 
     if "opacity" in v:
         lines.append(f"  opacity: {sum_expr(p, 'opacity', v, '1')};")
+        # a fully transparent layer is still composited, filtered and clipped
+        # every frame. visibility:hidden takes it out of that work entirely.
+        lines.append(f"  visibility: var({p}-vis, visible);")
     elif layer.get("staticOpacity") is not None:
         lines.append(f"  opacity: {layer['staticOpacity']};")
 
@@ -312,6 +314,9 @@ def css_for_group(index, group):
 
     if "opacity" in v:
         lines.append(f"  opacity: {sum_expr(p, 'opacity', v, '1')};")
+        # a fully transparent layer is still composited, filtered and clipped
+        # every frame. visibility:hidden takes it out of that work entirely.
+        lines.append(f"  visibility: var({p}-vis, visible);")
     lines.append("  will-change: transform, opacity;")
     lines.append("}")
     return "\n".join(lines)

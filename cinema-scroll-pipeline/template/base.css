@@ -83,7 +83,7 @@ button {
   height: auto;
   user-select: none;
   -webkit-user-drag: none;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
   pointer-events: none;
 }
 

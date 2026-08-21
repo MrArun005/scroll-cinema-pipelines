@@ -102,8 +102,11 @@ def css_for(scene, s):
         for k, (v, u) in accumulate(g["vars"], ctx).items():
             parts.append(f"--g{i}-{k}:{v}{u}")
     for i, l in enumerate(scene.get("layers", [])):
-        for k, (v, u) in accumulate(l["vars"], ctx).items():
+        acc = accumulate(l["vars"], ctx)
+        for k, (v, u) in acc.items():
             parts.append(f"--l{i}-{k}:{v}{u}")
+        if "opacity" in acc:
+            parts.append(f"--l{i}-vis:{'visible' if acc['opacity'][0] > 0.01 else 'hidden'}")
     for i, p in enumerate(scene.get("panels", [])):
         seg = ctx["segments"].get(p.get("segment") or "")
         if seg:

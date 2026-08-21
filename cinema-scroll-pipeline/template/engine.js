@@ -139,10 +139,25 @@
     return out;
   }
 
+  // Writing a custom property invalidates style for everything that reads it,
+  // so a few hundred identical writes per frame is real main-thread cost during
+  // a hold. Only publish what actually moved.
+  const lastWritten = new Map();
+
+  function setVar(name, value) {
+    if (lastWritten.get(name) === value) return;
+    lastWritten.set(name, value);
+    root.style.setProperty(name, value);
+  }
+
   function publish(prefix, resolved) {
     for (const name in resolved) {
       const r = resolved[name];
-      root.style.setProperty(`--${prefix}-${name}`, r.unit ? `${r.value}${r.unit}` : r.value);
+      setVar(`--${prefix}-${name}`, r.unit ? `${r.value}${r.unit}` : r.value);
+    }
+    // take fully transparent layers out of compositing altogether
+    if ("opacity" in resolved) {
+      setVar(`--${prefix}-vis`, resolved.opacity.value > 0.01 ? "visible" : "hidden");
     }
   }
 
@@ -182,9 +197,9 @@
     const progress = clamp(smoothScroll / span);
     const ctx = { progress, segments, scroll: smoothScroll, mx, my };
 
-    root.style.setProperty("--mx", mx.toFixed(4));
-    root.style.setProperty("--my", my.toFixed(4));
-    root.style.setProperty("--progress", progress.toFixed(4));
+    setVar("--mx", mx.toFixed(4));
+    setVar("--my", my.toFixed(4));
+    setVar("--progress", progress.toFixed(4));
 
     // Groups first: a group is a parent transform, so a stack of layers can
     // zoom or drift as one unit while each child still has its own motion.
@@ -208,8 +223,8 @@
       if (seg) {
         const opacity = seg.active * (1 - seg.exit);
         const y = -seg.exit * panel.exitSlide + (1 - seg.enter) * panel.enterSlide;
-        root.style.setProperty(`--p${i}-opacity`, opacity);
-        root.style.setProperty(`--p${i}-y`, `calc(-50% + ${y}px)`);
+        setVar(`--p${i}-opacity`, opacity);
+        setVar(`--p${i}-y`, `calc(-50% + ${y}px)`);
       }
       if (panel.vars) publish(`p${i}v`, accumulate(panel.vars, ctx));
     }
@@ -217,10 +232,10 @@
     const shade = SCENE.shade;
     if (shade) {
       const drive = resolveDriver(shade.drive, ctx);
-      root.style.setProperty("--shade-top-alpha", drive * shade.top);
-      root.style.setProperty("--shade-mid-alpha", drive * shade.mid);
-      root.style.setProperty("--shade-bottom-alpha", drive * shade.bottom);
-      root.style.setProperty("--shade-z", drive > (shade.liftAt == null ? 0.02 : shade.liftAt) ? "2" : "0");
+      setVar("--shade-top-alpha", drive * shade.top);
+      setVar("--shade-mid-alpha", drive * shade.mid);
+      setVar("--shade-bottom-alpha", drive * shade.bottom);
+      setVar("--shade-z", drive > (shade.liftAt == null ? 0.02 : shade.liftAt) ? "2" : "0");
     }
 
     // Keep any element screen-true inside a parent that is still scaling.
@@ -232,14 +247,14 @@
           : (() => {
               return scaleOf(accumulate(SCENE.layers[counter.layer].vars, ctx));
             })();
-      root.style.setProperty("--counter-scale", 1 / s);
+      setVar("--counter-scale", 1 / s);
       if (counter.screenTop != null) {
         const screenTop =
           Math.min(counter.max, Math.max(counter.min, window.innerHeight * counter.vh)) -
           counter.screenTop;
         const parentTop = window.innerHeight - (window.innerHeight - screenTop) / s;
-        root.style.setProperty("--counter-screen-top", `${screenTop}px`);
-        root.style.setProperty("--counter-parent-top", `${parentTop}px`);
+        setVar("--counter-screen-top", `${screenTop}px`);
+        setVar("--counter-parent-top", `${parentTop}px`);
       }
     }
 
